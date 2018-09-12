@@ -20,6 +20,7 @@ public class ProjetoTesteApplication {
 	public CommandLineRunner commandLineRunner() {
 		return args -> {
 			System.out.println("### QTD = " + this.qtd);
+			System.out.println("Hello Wordl");
 		};
 	}
 }
