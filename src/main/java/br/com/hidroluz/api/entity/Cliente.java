@@ -88,5 +88,7 @@ public class Cliente implements Serializable {
 	}
 
 	
+	// comentario do teste
+	
 	
 }
