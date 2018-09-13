@@ -1,6 +1,5 @@
-package br.com.hidroluz.entity;
+package br.com.hidroluz.api.entity;
 
-import java.awt.SecondaryLoop;
 import java.io.Serializable;
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class Cliente implements Serializable {
 	private Integer Id_Cliente;
 	
 	@Column(name = "login", nullable = false)
-	private String Login;
+	private String login;
 	
 	@Column(name = "senha", nullable = false)
 	private String Senha;
@@ -43,14 +42,16 @@ public class Cliente implements Serializable {
 		Id_Cliente = id_Cliente;
 	}
 	
+
+	
 	public String getLogin() {
-		return Login;
+		return login;
 	}
-	
+
 	public void setLogin(String login) {
-		Login = login;
+		this.login = login;
 	}
-	
+
 	public String getSenha() {
 		return Senha;
 	}
@@ -67,16 +68,23 @@ public class Cliente implements Serializable {
 		this.concentradores = concentradores;
 	}
 
+	
+	
+		
 	public Cliente(Integer id_Cliente, String login, String senha) {
 		super();
 		Id_Cliente = id_Cliente;
-		Login = login;
+		this.login = login;
 		Senha = senha;
 	}
-	
+
+	public Cliente() {
+		super();
+	}
+
 	@Override
 	public String toString() {
-		return "Cliente [Id_Cliente=" + Id_Cliente + ", Login=" + Login + ", Senha=" + Senha + "]";
+		return "Cliente [Id_Cliente=" + Id_Cliente + ", Login=" + login + ", Senha=" + Senha + "]";
 	}
 
 	

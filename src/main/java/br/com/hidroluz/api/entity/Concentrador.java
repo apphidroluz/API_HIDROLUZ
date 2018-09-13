@@ -1,4 +1,4 @@
-package br.com.hidroluz.entity;
+package br.com.hidroluz.api.entity;
 
 import java.util.List;
 
