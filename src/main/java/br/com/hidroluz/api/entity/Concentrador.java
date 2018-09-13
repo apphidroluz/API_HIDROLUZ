@@ -72,15 +72,4 @@ public class Concentrador {
 				+ cliente + "]";
 	}
 
-<<<<<<< HEAD
-	
-	
-	
-	
-	
-	//testando novamente
-=======
-	//Teste Merge
-		
->>>>>>> 1375a1704eecfb2d4b55eac7b8176d13343435ec
 }
