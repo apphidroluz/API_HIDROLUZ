@@ -9,13 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import br.com.hidroluz.api.entity.Cliente;
-import br.com.hidroluz.api.repositories.ClienteRepository;
+
 
 @SpringBootApplication
 public class ProjetoTesteApplication {
 	
-	@Autowired
-	private ClienteRepository clienteRepository;
+//	@Autowired
+//	private ClienteRepository clienteRepository;
+	
+
 
 	public static void main(String[] args) {
 		
@@ -26,15 +28,18 @@ public class ProjetoTesteApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner() {
 		return args -> {
-			Cliente cliente = new Cliente(null, "TESTE", "TESTE");
+//			Cliente cliente = new Cliente(null, "TESTE", "TESTE");
+//			
+//			this.clienteRepository.save(cliente);
+//			
+//			List<Cliente> cli = clienteRepository.findAll();
+//			cli.forEach(System.out::println);
+//			
+//			System.out.println("### QTD = ");
+//			System.out.println("Hidroluz");
 			
-			this.clienteRepository.save(cliente);
+		
 			
-			List<Cliente> cli = clienteRepository.findAll();
-			cli.forEach(System.out::println);
-			
-			System.out.println("### QTD = ");
-			System.out.println("Hidroluz");
 		};
 	}
 }
