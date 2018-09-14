@@ -28,6 +28,8 @@ public class ClienteController {
 		Response<Cliente> response = new Response<Cliente>();
 		
 		
+		
+		
 		Cliente cliente = new Cliente(null, clienteDto.getLogin(), clienteDto.getSenha());
         this.clienteRepository.save(cliente);
        
@@ -48,6 +50,8 @@ public class ClienteController {
 	@PostMapping(value= "/v1/logar")
 	public ResponseEntity<Response<Cliente>> cadastrar2(@PathParam("logar") @Valid @RequestBody ClienteDTO clienteDto, BindingResult result){
 		Response<Cliente> response = new Response<Cliente>();
+		
+		
 		
 		
 	
