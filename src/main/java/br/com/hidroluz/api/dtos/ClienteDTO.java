@@ -10,6 +10,13 @@ public class ClienteDTO {
 	private String login;
 	private String senha;
 
+	public ClienteDTO(Integer id_Cliente, String login, String senha) {
+		super();
+		this.id_Cliente = id_Cliente;
+		this.login = login;
+		this.senha = senha;
+	}
+
 	public ClienteDTO() {
 
 	}
