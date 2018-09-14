@@ -6,6 +6,6 @@ import br.com.hidroluz.api.entity.Cliente;
 
 public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
 	
-	Cliente findByLogin(String login);
+	Cliente findByLoginAndSenha(String login, String senha);
 
 }

@@ -28,7 +28,7 @@ public class Cliente implements Serializable {
 	private String login;
 	
 	@Column(name = "senha", nullable = false)
-	private String Senha;
+	private String senha;
 	
 	@OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Concentrador> concentradores;
@@ -53,11 +53,11 @@ public class Cliente implements Serializable {
 	}
 
 	public String getSenha() {
-		return Senha;
+		return senha;
 	}
 	
 	public void setSenha(String senha) {
-		Senha = senha;
+		this.senha = senha;
 	}
 	
 	public List<Concentrador> getConcentradores() {
@@ -75,7 +75,7 @@ public class Cliente implements Serializable {
 		super();
 		Id_Cliente = id_Cliente;
 		this.login = login;
-		Senha = senha;
+		this.senha = senha;
 	}
 
 	public Cliente() {
@@ -84,7 +84,7 @@ public class Cliente implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Cliente [Id_Cliente=" + Id_Cliente + ", Login=" + login + ", Senha=" + Senha + "]";
+		return "Cliente [Id_Cliente=" + Id_Cliente + ", Login=" + login + ", Senha=" + senha + "]";
 	}
 
 	

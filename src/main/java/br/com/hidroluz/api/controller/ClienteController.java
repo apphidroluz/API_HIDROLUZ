@@ -45,13 +45,13 @@ public class ClienteController {
 		
 	}
 	
-	@PostMapping(value= "/v2/cadastrar")
-	public ResponseEntity<Response<Cliente>> cadastrar2(@PathParam("cadastrar") @Valid @RequestBody ClienteDTO clienteDto, BindingResult result){
+	@PostMapping(value= "/v1/logar")
+	public ResponseEntity<Response<Cliente>> cadastrar2(@PathParam("logar") @Valid @RequestBody ClienteDTO clienteDto, BindingResult result){
 		Response<Cliente> response = new Response<Cliente>();
 		
 		
-		Cliente cliente = new Cliente(null, clienteDto.getLogin(), clienteDto.getSenha());
-        this.clienteRepository.save(cliente);
+	
+		Cliente cliente = this.clienteRepository.findByLoginAndSenha(clienteDto.getLogin(), clienteDto.getSenha());
        
         // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> AINDA NÃO ESTÁ VALIDANDO <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         if(result.hasErrors()) {
@@ -60,7 +60,6 @@ public class ClienteController {
 		}
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         
-		clienteDto.setId_Cliente(1);
 		response.setData(cliente);
 		
 		return ResponseEntity.ok(response);
