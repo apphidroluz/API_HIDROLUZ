@@ -1,43 +1,49 @@
 package br.com.hidroluz.api.dtos;
 
 public class ClienteDTO {
-	
-	private Integer Id_Cliente;
+
+	private Integer id_Cliente;
 	private String login;
-	private String Senha;
-	
-	
-	
+	private String senha;
+
 	public ClienteDTO(Integer id_Cliente, String login, String senha) {
 		super();
-		Id_Cliente = id_Cliente;
+		this.id_Cliente = id_Cliente;
 		this.login = login;
-		Senha = senha;
+		this.senha = senha;
 	}
-	
+
+	public ClienteDTO() {
+
+	}
+
 	@Override
 	public String toString() {
-		return "ClienteDTO [Id_Cliente=" + Id_Cliente + ", login=" + login + ", Senha=" + Senha + "]";
+		return "ClienteDTO [Id_Cliente=" + id_Cliente + ", login=" + login + ", Senha=" + senha + "]";
 	}
+
 	public Integer getId_Cliente() {
-		return Id_Cliente;
+		return id_Cliente;
 	}
+
 	public void setId_Cliente(Integer id_Cliente) {
-		Id_Cliente = id_Cliente;
+		this.id_Cliente = id_Cliente;
 	}
+
 	public String getLogin() {
 		return login;
 	}
+
 	public void setLogin(String login) {
 		this.login = login;
 	}
+
 	public String getSenha() {
-		return Senha;
+		return senha;
 	}
+
 	public void setSenha(String senha) {
-		Senha = senha;
+		this.senha = senha;
 	}
-	
-	
 
 }
