@@ -19,52 +19,31 @@ import br.com.hidroluz.api.responses.Response;
 @RestController
 @RequestMapping("/api/cliente")
 public class ClienteController {
-	
+
 	@Autowired
 	private ClienteRepository clienteRepository;
-	
-	@PostMapping(value= "/v1/cadastrar")
-	public ResponseEntity<Response<Cliente>> cadastrar1(@PathParam("cadastrar") @Valid @RequestBody ClienteDTO clienteDto, BindingResult result){
-		Response<Cliente> response = new Response<Cliente>();
-		
-		
-		Cliente cliente = new Cliente(null, clienteDto.getLogin(), clienteDto.getSenha());
-        this.clienteRepository.save(cliente);
-       
-        // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> AINDA NÃO ESTÁ VALIDANDO <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        if(result.hasErrors()) {
+
+	@PostMapping(value = "/v1/cadastrar")
+	public ResponseEntity<Response<ClienteDTO>> cadastrar1(
+			@PathParam("cadastrar") @Valid @RequestBody ClienteDTO clienteDto, BindingResult result) {
+		Response<ClienteDTO> response = new Response<ClienteDTO>();
+
+		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> AINDA NÃO ESTÁ VALIDANDO <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+		if (result.hasErrors()) {
 			result.getAllErrors().forEach(errors -> response.getErrors().add(errors.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
 		}
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        
-		clienteDto.setId_Cliente(1);
-		response.setData(cliente);
-		
-		return ResponseEntity.ok(response);
-		
-	}
-	
-	@PostMapping(value= "/v2/cadastrar")
-	public ResponseEntity<Response<Cliente>> cadastrar2(@PathParam("cadastrar") @Valid @RequestBody ClienteDTO clienteDto, BindingResult result){
-		Response<Cliente> response = new Response<Cliente>();
-		
 		
 		Cliente cliente = new Cliente(null, clienteDto.getLogin(), clienteDto.getSenha());
-        this.clienteRepository.save(cliente);
-       
-        // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> AINDA NÃO ESTÁ VALIDANDO <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        if(result.hasErrors()) {
-			result.getAllErrors().forEach(errors -> response.getErrors().add(errors.getDefaultMessage()));
-			return ResponseEntity.badRequest().body(response);
-		}
-		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        
-		clienteDto.setId_Cliente(1);
-		response.setData(cliente);
-		
+		this.clienteRepository.save(cliente);
+
+		clienteDto.setId_Cliente(cliente.getId_Cliente());
+		response.setData(clienteDto);
+
 		return ResponseEntity.ok(response);
-		
+
 	}
+
 
 }
