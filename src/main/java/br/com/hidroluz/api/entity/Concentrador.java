@@ -27,9 +27,7 @@ public class Concentrador {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Cliente cliente;
 
-	@OneToMany(mappedBy = "concentrador", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<XML_TAB> xml_TABs;
-
+	
 	public Concentrador() {
 		super();
 	}
@@ -58,13 +56,6 @@ public class Concentrador {
 		this.cliente = cliente;
 	}
 
-	public List<XML_TAB> getXml_TABs() {
-		return xml_TABs;
-	}
-
-	public void setXml_TABs(List<XML_TAB> xml_TABs) {
-		this.xml_TABs = xml_TABs;
-	}
 
 	@Override
 	public String toString() {

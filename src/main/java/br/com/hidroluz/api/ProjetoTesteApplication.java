@@ -23,6 +23,7 @@ public class ProjetoTesteApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner() {
 		return args -> {
+
 //			Cliente cliente = new Cliente(null, "TESTE", "TESTE");
 //			
 //			this.clienteRepository.save(cliente);
@@ -32,9 +33,17 @@ public class ProjetoTesteApplication {
 //			
 //			System.out.println("### QTD = ");
 //			System.out.println("Hidroluz");
+
+			/*Cliente cliente = new Cliente(null, "TESTE", "TESTE");
+>>>>>>> 929ddb2ce8f4a47d13278b560ca8c70b45593c18
 			
 		
 			
+<<<<<<< HEAD
+=======
+			System.out.println("### QTD = ");
+			System.out.println("Hidroluz");*/
+
 		};
 	}
 }
