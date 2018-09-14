@@ -2,7 +2,6 @@ package br.com.hidroluz.api.controller;
 
 import javax.validation.Valid;
 import javax.websocket.server.PathParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -15,6 +14,7 @@ import br.com.hidroluz.api.dtos.ClienteDTO;
 import br.com.hidroluz.api.entity.Cliente;
 import br.com.hidroluz.api.repositories.ClienteRepository;
 import br.com.hidroluz.api.responses.Response;
+
 
 @RestController
 @RequestMapping("/api/cliente")
@@ -42,6 +42,7 @@ public class ClienteController {
 		response.setData(clienteDto);
 
 		return ResponseEntity.ok(response);
+
 
 	}
 

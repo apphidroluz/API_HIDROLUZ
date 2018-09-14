@@ -19,8 +19,8 @@ public class XML_TAB {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer idXML_TAB;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Concentrador concentrador;
+	@Column(name = "concentrador", nullable = false)
+	private String Concentrador;
 
 	@Column(name = "data_Hora_leitura", nullable = false)
 	private Date Data_Hora_leitura;
@@ -87,6 +87,16 @@ public class XML_TAB {
 
 	public void setUnit(String unit) {
 		Unit = unit;
+	}
+	
+	
+
+	public String getConcentrador() {
+		return Concentrador;
+	}
+
+	public void setConcentrador(String concentrador) {
+		Concentrador = concentrador;
 	}
 
 	@Override
