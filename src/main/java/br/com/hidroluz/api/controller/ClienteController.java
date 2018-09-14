@@ -14,6 +14,7 @@ import br.com.hidroluz.api.dtos.ClienteDTO;
 import br.com.hidroluz.api.entity.Cliente;
 import br.com.hidroluz.api.repositories.ClienteRepository;
 import br.com.hidroluz.api.responses.Response;
+import br.com.hidroluz.api.utils.SenhaUtils;
 
 @RestController
 @RequestMapping("/api/cliente")
@@ -32,8 +33,10 @@ public class ClienteController {
 			result.getAllErrors().forEach(errors -> response.getErrors().add(errors.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
 		}
+		
+		String senhaEncode = SenhaUtils.gerarBCrypt(clienteDto.getSenha());
 
-		Cliente cliente = new Cliente(null, clienteDto.getLogin(), clienteDto.getSenha());
+		Cliente cliente = new Cliente(null, clienteDto.getLogin(), senhaEncode);
 		this.clienteRepository.save(cliente);
 
 		clienteDto.setId_Cliente(1);
