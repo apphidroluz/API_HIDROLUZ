@@ -26,7 +26,7 @@ public class ProjetoTesteApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner() {
 		return args -> {
-			Cliente cliente = new Cliente(null, "TESTE", "TESTE");
+			/*Cliente cliente = new Cliente(null, "TESTE", "TESTE");
 			
 			this.clienteRepository.save(cliente);
 			
@@ -34,7 +34,7 @@ public class ProjetoTesteApplication {
 			cli.forEach(System.out::println);
 			
 			System.out.println("### QTD = ");
-			System.out.println("Hidroluz");
+			System.out.println("Hidroluz");*/
 		};
 	}
 }
