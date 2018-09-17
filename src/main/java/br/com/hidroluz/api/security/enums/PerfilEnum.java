@@ -1,4 +1,4 @@
-package br.com.hidroluz.api.enums;
+package br.com.hidroluz.api.security.enums;
 
 public enum PerfilEnum {
 	

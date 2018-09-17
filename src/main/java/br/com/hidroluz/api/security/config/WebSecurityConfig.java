@@ -1,4 +1,4 @@
-package br.com.hidroluz.api.config;
+package br.com.hidroluz.api.security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -14,8 +14,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import br.com.hidroluz.api.filters.JwtAuthenticationTokenFilter;
 import br.com.hidroluz.api.security.JwtAuthenticationEntryPoint;
+import br.com.hidroluz.api.security.filters.JwtAuthenticationTokenFilter;
 
 @Configuration
 @EnableWebSecurity

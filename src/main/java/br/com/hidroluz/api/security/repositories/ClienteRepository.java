@@ -1,9 +1,9 @@
-package br.com.hidroluz.api.repositories;
+package br.com.hidroluz.api.security.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.hidroluz.api.entity.Cliente;
+import br.com.hidroluz.api.security.entity.Cliente;
 
 @Transactional(readOnly = true)
 public interface ClienteRepository extends JpaRepository<Cliente, Integer> {

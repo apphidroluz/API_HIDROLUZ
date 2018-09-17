@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.hidroluz.api.dtos.ClienteDTO;
-import br.com.hidroluz.api.entity.Cliente;
-import br.com.hidroluz.api.repositories.ClienteRepository;
 import br.com.hidroluz.api.responses.Response;
+import br.com.hidroluz.api.security.entity.Cliente;
+import br.com.hidroluz.api.security.repositories.ClienteRepository;
 import br.com.hidroluz.api.utils.SenhaUtils;
 
 @RestController

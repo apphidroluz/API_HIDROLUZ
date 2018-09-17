@@ -1,4 +1,4 @@
-package br.com.hidroluz.api.controller;
+package br.com.hidroluz.api.security.controllers;
 
 import java.util.Optional;
 
@@ -23,10 +23,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.hidroluz.api.dtos.JwtAuthenticationDto;
-import br.com.hidroluz.api.dtos.TokenDto;
 import br.com.hidroluz.api.responses.Response;
-import br.com.hidroluz.api.utils.JwtTokenUtil;
+import br.com.hidroluz.api.security.dto.JwtAuthenticationDto;
+import br.com.hidroluz.api.security.dto.TokenDto;
+import br.com.hidroluz.api.security.utils.JwtTokenUtil;
 
 @RestController
 @RequestMapping("/auth")

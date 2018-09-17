@@ -1,4 +1,4 @@
-package br.com.hidroluz.api.entity;
+package br.com.hidroluz.api.security.entity;
 
 import java.io.Serializable;
 import java.util.List;
@@ -15,7 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import br.com.hidroluz.api.enums.PerfilEnum;
+import br.com.hidroluz.api.security.enums.PerfilEnum;
 
 @Entity
 @Table(name = "cliente")

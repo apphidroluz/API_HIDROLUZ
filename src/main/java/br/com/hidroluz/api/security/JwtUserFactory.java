@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import br.com.hidroluz.api.entity.Cliente;
-import br.com.hidroluz.api.enums.PerfilEnum;
+import br.com.hidroluz.api.security.entity.Cliente;
+import br.com.hidroluz.api.security.enums.PerfilEnum;
 
 public class JwtUserFactory {
 	
