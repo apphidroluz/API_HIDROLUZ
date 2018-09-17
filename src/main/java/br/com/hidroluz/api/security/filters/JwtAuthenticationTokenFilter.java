@@ -1,4 +1,4 @@
-package br.com.hidroluz.api.filters;
+package br.com.hidroluz.api.security.filters;
 
 import java.io.IOException;
 
@@ -15,7 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import br.com.hidroluz.api.utils.JwtTokenUtil;
+import br.com.hidroluz.api.security.utils.JwtTokenUtil;
 
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
@@ -50,4 +50,5 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
 		chain.doFilter(request, response);
 	}
+
 }
