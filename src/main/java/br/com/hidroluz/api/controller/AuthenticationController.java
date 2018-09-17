@@ -37,7 +37,6 @@ public class AuthenticationController {
 	private static final String TOKEN_HEADER = "Authorization";
 	private static final String BEARER_PREFIX = "Bearer ";
 
-	@Autowired
 	private AuthenticationManager authenticationManager;
 
 	@Autowired
@@ -57,7 +56,7 @@ public class AuthenticationController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		log.info("Gerando token para o email {}.", authenticationDto.getLogin());
+		log.info("Gerando token para o login {}.", authenticationDto.getLogin());
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(authenticationDto.getLogin(), authenticationDto.getSenha()));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
