@@ -1,4 +1,4 @@
-package br.com.hidroluz.api.entity;
+package br.com.hidroluz.api.security.entity;
 
 import java.util.List;
 

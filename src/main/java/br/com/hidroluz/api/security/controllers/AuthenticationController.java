@@ -1,4 +1,4 @@
-package br.com.hidroluz.api.controller;
+package br.com.hidroluz.api.security.controllers;
 
 import java.util.Optional;
 
@@ -23,10 +23,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.hidroluz.api.dtos.JwtAuthenticationDto;
-import br.com.hidroluz.api.dtos.TokenDto;
 import br.com.hidroluz.api.responses.Response;
-import br.com.hidroluz.api.utils.JwtTokenUtil;
+import br.com.hidroluz.api.security.dto.JwtAuthenticationDto;
+import br.com.hidroluz.api.security.dto.TokenDto;
+import br.com.hidroluz.api.security.utils.JwtTokenUtil;
 
 @RestController
 @RequestMapping("/auth")
@@ -46,6 +46,14 @@ public class AuthenticationController {
 	@Autowired
 	private UserDetailsService userDetailsService;
 
+	/**
+	 * Gera e retorna um novo token JWT.
+	 * 
+	 * @param authenticationDto
+	 * @param result
+	 * @return ResponseEntity<Response<TokenDto>>
+	 * @throws AuthenticationException
+	 */
 	@PostMapping
 	public ResponseEntity<Response<TokenDto>> gerarTokenJwt(@Valid @RequestBody JwtAuthenticationDto authenticationDto,
 			BindingResult result) throws AuthenticationException {
@@ -69,6 +77,12 @@ public class AuthenticationController {
 		return ResponseEntity.ok(response);
 	}
 
+	/**
+	 * Gera um novo token com uma nova data de expiração.
+	 * 
+	 * @param request
+	 * @return ResponseEntity<Response<TokenDto>>
+	 */
 	@PostMapping(value = "/refresh")
 	public ResponseEntity<Response<TokenDto>> gerarRefreshTokenJwt(HttpServletRequest request) {
 		log.info("Gerando refresh token JWT.");

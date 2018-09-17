@@ -1,4 +1,4 @@
-package br.com.hidroluz.api.utils;
+package br.com.hidroluz.api.security.utils;
 
 import java.util.Date;
 import java.util.HashMap;

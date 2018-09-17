@@ -1,4 +1,4 @@
-package br.com.hidroluz.api.dtos;
+package br.com.hidroluz.api.security.dto;
 
 public class TokenDto {
 	
