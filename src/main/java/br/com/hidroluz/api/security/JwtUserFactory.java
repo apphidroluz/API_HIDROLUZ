@@ -17,6 +17,8 @@ public class JwtUserFactory {
 	public static JwtUser create(Cliente cliente) {
 		return new JwtUser(cliente.getId_Cliente(), cliente.getLogin(), 
 						   cliente.getSenha(), mapToGrateAuthorities(cliente.getPerfil()));
+		
+	
 	}
 	
 	private static List<GrantedAuthority> mapToGrateAuthorities(PerfilEnum perfilEnum){

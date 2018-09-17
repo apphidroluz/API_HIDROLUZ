@@ -46,6 +46,14 @@ public class AuthenticationController {
 	@Autowired
 	private UserDetailsService userDetailsService;
 
+	/**
+	 * Gera e retorna um novo token JWT.
+	 * 
+	 * @param authenticationDto
+	 * @param result
+	 * @return ResponseEntity<Response<TokenDto>>
+	 * @throws AuthenticationException
+	 */
 	@PostMapping
 	public ResponseEntity<Response<TokenDto>> gerarTokenJwt(@Valid @RequestBody JwtAuthenticationDto authenticationDto,
 			BindingResult result) throws AuthenticationException {
@@ -69,6 +77,12 @@ public class AuthenticationController {
 		return ResponseEntity.ok(response);
 	}
 
+	/**
+	 * Gera um novo token com uma nova data de expiração.
+	 * 
+	 * @param request
+	 * @return ResponseEntity<Response<TokenDto>>
+	 */
 	@PostMapping(value = "/refresh")
 	public ResponseEntity<Response<TokenDto>> gerarRefreshTokenJwt(HttpServletRequest request) {
 		log.info("Gerando refresh token JWT.");
