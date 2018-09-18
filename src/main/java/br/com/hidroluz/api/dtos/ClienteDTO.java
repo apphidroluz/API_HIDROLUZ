@@ -1,8 +1,13 @@
 package br.com.hidroluz.api.dtos;
 
+import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
+
+import br.com.hidroluz.api.security.enums.PerfilEnum;
 
 public class ClienteDTO {
 
@@ -15,21 +20,32 @@ public class ClienteDTO {
 	@NotEmpty(message = "Senha não pode ficar vazia")
 	@Length(min = 3, max = 200, message = "Senha deve conter no mínimo 3 caracteres")
 	private String senha;
-
-	public ClienteDTO(Integer id_Cliente, String login, String senha) {
-		super();
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "perfil", nullable = false)
+	private PerfilEnum perfil;
+	
+	public ClienteDTO() {
+	}
+	
+	public ClienteDTO(Integer id_Cliente, String login, String senha, PerfilEnum perfil) {
 		this.id_Cliente = id_Cliente;
 		this.login = login;
 		this.senha = senha;
-	}
-
-	public ClienteDTO() {
-
+		this.perfil = perfil;
 	}
 
 	@Override
 	public String toString() {
 		return "ClienteDTO [Id_Cliente=" + id_Cliente + ", login=" + login + ", Senha=" + senha + "]";
+	}
+
+	public PerfilEnum getPerfil() {
+		return perfil;
+	}
+
+	public void setPerfil(PerfilEnum perfil) {
+		this.perfil = perfil;
 	}
 
 	public Integer getId_Cliente() {

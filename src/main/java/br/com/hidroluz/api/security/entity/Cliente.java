@@ -80,11 +80,12 @@ public class Cliente implements Serializable {
 		this.perfil = perfil;
 	}
 
-	public Cliente(Integer id_Cliente, String login, String senha) {
+	public Cliente(Integer id_Cliente, String login, String senha, PerfilEnum perfil) {
 		super();
 		Id_Cliente = id_Cliente;
 		this.login = login;
 		this.senha = senha;
+		this.perfil = perfil;
 	}
 
 	public Cliente() {
@@ -95,7 +96,5 @@ public class Cliente implements Serializable {
 	public String toString() {
 		return "Cliente [Id_Cliente=" + Id_Cliente + ", Login=" + login + ", Senha=" + senha + "]";
 	}
-
-	// comentario do teste
 
 }

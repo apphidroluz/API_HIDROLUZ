@@ -5,6 +5,7 @@ import javax.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,8 @@ import br.com.hidroluz.api.security.repositories.ClienteRepository;
 import br.com.hidroluz.api.utils.SenhaUtils;
 
 @RestController
-@RequestMapping("/api/cliente")
+@RequestMapping("/auth/api/cliente")
+@CrossOrigin(origins = "*")
 public class ClienteController {
 
 	@Autowired
@@ -36,10 +38,10 @@ public class ClienteController {
 		
 		String senhaEncode = SenhaUtils.gerarBCrypt(clienteDto.getSenha());
 
-		Cliente cliente = new Cliente(null, clienteDto.getLogin(), senhaEncode);
+		Cliente cliente = new Cliente(null, clienteDto.getLogin(), senhaEncode, clienteDto.getPerfil());
 		this.clienteRepository.save(cliente);
 
-		clienteDto.setId_Cliente(1);
+		clienteDto.setId_Cliente(cliente.getId_Cliente());
 		response.setData(cliente);
 
 		return ResponseEntity.ok(response);
