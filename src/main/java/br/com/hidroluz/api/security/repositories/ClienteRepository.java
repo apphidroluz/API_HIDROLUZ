@@ -9,7 +9,6 @@ import br.com.hidroluz.api.security.entity.Cliente;
 
 @Repository
 @ComponentScan(basePackages = "br.com.hidroluz.api")
-//@Component
 @ConfigurationProperties(prefix = "cliente")
 public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
 	

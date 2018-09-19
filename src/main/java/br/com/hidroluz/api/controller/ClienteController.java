@@ -59,9 +59,19 @@ public class ClienteController {
 			return ResponseEntity.badRequest().body(response);
 		}
 		
-		Cliente cliente = this.clienteRepository.findByLoginAndSenha(clienteDto.getLogin(), clienteDto.getSenha());
-
-		response.setData(cliente);
+		Cliente cliente = this.clienteRepository.findByLogin(clienteDto.getLogin());
+		
+		String senhaEncode = SenhaUtils.gerarBCrypt(cliente.getSenha());
+		
+		if(SenhaUtils.senhaValida(clienteDto.getSenha(), senhaEncode) == true) {
+			
+			response.setData(cliente);
+			
+		}else {
+			
+			//response.setErrors(error);
+			
+		}
 
 		return ResponseEntity.ok(response);
 
