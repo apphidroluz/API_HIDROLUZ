@@ -35,7 +35,7 @@ public class ClienteController {
 			result.getAllErrors().forEach(errors -> response.getErrors().add(errors.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
 		}
-		
+
 		String senhaEncode = SenhaUtils.gerarBCrypt(clienteDto.getSenha());
 
 		Cliente cliente = new Cliente(null, clienteDto.getLogin(), senhaEncode, clienteDto.getPerfil());
@@ -53,29 +53,26 @@ public class ClienteController {
 			BindingResult result) {
 		Response<Cliente> response = new Response<Cliente>();
 
-	
 		if (result.hasErrors()) {
 			result.getAllErrors().forEach(errors -> response.getErrors().add(errors.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
 		}
-		
+
 		Cliente cliente = this.clienteRepository.findByLogin(clienteDto.getLogin());
-		
-			
-		
-		if(SenhaUtils.senhaValida(clienteDto.getSenha(), cliente.getSenha()) == true) {
-			
+
+		String senhaEncode = SenhaUtils.gerarBCrypt(cliente.getSenha());
+
+		if (SenhaUtils.senhaValida(clienteDto.getSenha(), senhaEncode) == true) {
+
 			response.setData(cliente);
-			return ResponseEntity.ok(response);
-			
-		}else {
-			
-			result.getAllErrors().forEach(errors -> response.getErrors().add(errors.getDefaultMessage()));
-			return ResponseEntity.badRequest().body(response);
-			
+
+		} else {
+
+			// response.setErrors(error);
+
 		}
 
-		
+		return ResponseEntity.ok(response);
 
 	}
 
