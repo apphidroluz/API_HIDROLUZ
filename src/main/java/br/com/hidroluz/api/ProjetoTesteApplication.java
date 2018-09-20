@@ -50,7 +50,7 @@ public class ProjetoTesteApplication {
 			
 			DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 			LocalDateTime dateTime = LocalDateTime.of(2018, Month.SEPTEMBER, 18, 00, 00, 00);
-			System.out.println(dateTime);
+			//System.out.println(dateTime);
 			
 		
 			
