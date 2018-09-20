@@ -59,11 +59,23 @@ public class ClienteController {
 			return ResponseEntity.badRequest().body(response);
 		}
 		
-		Cliente cliente = this.clienteRepository.findByLoginAndSenha(clienteDto.getLogin(), clienteDto.getSenha());
+		Cliente cliente = this.clienteRepository.findByLogin(clienteDto.getLogin());
+		
+			
+		
+		if(SenhaUtils.senhaValida(clienteDto.getSenha(), cliente.getSenha()) == true) {
+			
+			response.setData(cliente);
+			return ResponseEntity.ok(response);
+			
+		}else {
+			
+			result.getAllErrors().forEach(errors -> response.getErrors().add(errors.getDefaultMessage()));
+			return ResponseEntity.badRequest().body(response);
+			
+		}
 
-		response.setData(cliente);
-
-		return ResponseEntity.ok(response);
+		
 
 	}
 
