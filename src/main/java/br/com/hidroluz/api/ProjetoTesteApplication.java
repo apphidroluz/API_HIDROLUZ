@@ -1,5 +1,11 @@
 package br.com.hidroluz.api;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +15,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import br.com.hidroluz.api.security.entity.Cliente;
+import br.com.hidroluz.api.security.entity.XML_TAB;
 import br.com.hidroluz.api.security.enums.PerfilEnum;
 import br.com.hidroluz.api.security.repositories.ClienteRepository;
+import br.com.hidroluz.api.security.repositories.XML_TABRepository;
 import br.com.hidroluz.api.utils.SenhaUtils;
 
 
@@ -20,7 +28,8 @@ public class ProjetoTesteApplication {
 	@Autowired
 	private ClienteRepository clienteRepository;
 	
-
+	@Autowired
+	private XML_TABRepository xmlRepository;
 
 	public static void main(String[] args) {
 		
@@ -39,8 +48,17 @@ public class ProjetoTesteApplication {
 			
 			//this.clienteRepository.save(cliente);
 			
-			List<Cliente> cli = clienteRepository.findAll();
+			DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+			LocalDateTime dateTime = LocalDateTime.of(2018, Month.SEPTEMBER, 18, 00, 00, 00);
+			System.out.println(dateTime);
+			
+		
+			
+			List<XML_TAB> cli = xmlRepository.findByNumHidrometroAndData("173849273647582", dateTime);
 			cli.forEach(System.out::println);
+			
+//			List<XML_TAB> cli = xmlRepository.findByNumHidrometro("173849273647582");
+//			cli.forEach(System.out::println);
 //			
 //			System.out.println("### QTD = ");
 //			System.out.println("Hidroluz");
@@ -56,5 +74,9 @@ public class ProjetoTesteApplication {
 			System.out.println("Hidroluz");*/
 
 		};
+	}
+	
+	public Date convertToDateViaSqlDate(LocalDate dateToConvert) {
+	    return java.sql.Date.valueOf(dateToConvert);
 	}
 }

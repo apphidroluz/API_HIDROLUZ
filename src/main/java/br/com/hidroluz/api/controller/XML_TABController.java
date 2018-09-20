@@ -1,5 +1,7 @@
 package br.com.hidroluz.api.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 
@@ -76,9 +78,9 @@ public class XML_TABController {
 			return ResponseEntity.badRequest().body(response);
 		}
 		
-		XML_TAB xml = this.xmlRepository.findByConcentradorAndData(xmlDto.getConcentrador(), xmlDto.getData_Hora_leitura());
-		xmlDto.setIdXML_TAB(xml.getIdXML_TAB());
-		response.setData(xml);
+		//XML_TAB xml = this.xmlRepository.findByConcentradorAndData(xmlDto.getConcentrador(), xmlDto.getData_Hora_leitura());
+		//xmlDto.setIdXML_TAB(xml.getIdXML_TAB());
+		//response.setData(xml);
 		
 		return ResponseEntity.ok(response);
 
@@ -96,9 +98,9 @@ public class XML_TABController {
 			return ResponseEntity.badRequest().body(response);
 		}
 		
-		XML_TAB xml = this.xmlRepository.findByNumHidrometro(xmlDto.getNum_Hidrometro());
-		xmlDto.setIdXML_TAB(xml.getIdXML_TAB());
-		response.setData(xml);
+		List<XML_TAB> xml = this.xmlRepository.findByNumHidrometro(xmlDto.getHidrometro());
+		xmlDto.setIdXML_TAB(xml.get(0).getIdXML_TAB());
+		response.setData(xml.get(0));
 		
 		return ResponseEntity.ok(response);
 
@@ -116,12 +118,18 @@ public class XML_TABController {
 			return ResponseEntity.badRequest().body(response);
 		}
 		
-		XML_TAB xml = this.xmlRepository.findByNumHidrometroAndData(xmlDto.getNum_Hidrometro(), xmlDto.getData_Hora_leitura());
-		xmlDto.setIdXML_TAB(xml.getIdXML_TAB());
-		response.setData(xml);
+		//XML_TAB xml = this.xmlRepository.findByNumHidrometroAndData(xmlDto.getHidrometro(), xmlDto.getData_Hora_leitura());
+		//xmlDto.setIdXML_TAB(xml.getIdXML_TAB());
+		//response.setData(xml);
+		
+		List<XML_TAB> xml = this.xmlRepository.findByNumHidrometroAndData(xmlDto.getHidrometro(), xmlDto.getData());
+		xmlDto.setIdXML_TAB(xml.get(0).getIdXML_TAB());
+		response.setData(xml.get(0));
 		
 		return ResponseEntity.ok(response);
 
+		
+		
 		
 	}
 

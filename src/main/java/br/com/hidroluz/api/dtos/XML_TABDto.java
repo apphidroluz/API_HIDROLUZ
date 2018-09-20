@@ -1,31 +1,24 @@
 package br.com.hidroluz.api.dtos;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
 
 public class XML_TABDto {
 
 	private Integer idXML_TAB;
 	private String Concentrador;
-	private Date Data_Hora_leitura;
-	private String Num_Hidrometro;
+	private LocalDateTime data;
+	private String Hidrometro;
 
 	public XML_TABDto() {
 	}
 
-	public XML_TABDto(Integer idXML_TAB, String concentrador, Date data_Hora_leitura, String num_Hidrometro) {
-		super();
-		this.idXML_TAB = idXML_TAB;
-		Concentrador = concentrador;
-		Data_Hora_leitura = data_Hora_leitura;
-		Num_Hidrometro = num_Hidrometro;
-	}
-
-	@Override
-	public String toString() {
-		return "XML_TABDto [idXML_TAB=" + idXML_TAB + ", Concentrador=" + Concentrador + ", Data_Hora_leitura="
-				+ Data_Hora_leitura + ", Num_Hidrometro=" + Num_Hidrometro + "]";
-	}
-
+	
 	public Integer getIdXML_TAB() {
 		return idXML_TAB;
 	}
@@ -42,20 +35,34 @@ public class XML_TABDto {
 		Concentrador = concentrador;
 	}
 
-	public Date getData_Hora_leitura() {
-		return Data_Hora_leitura;
+
+
+	public XML_TABDto(Integer idXML_TAB, @Length(min = 3, max = 200) String concentrador, LocalDateTime data,
+			@Length(min = 3, max = 200) @NotEmpty(message = "Hidrometro não pode ser vazio.") String hidrometro) {
+		super();
+		this.idXML_TAB = idXML_TAB;
+		Concentrador = concentrador;
+		this.data = data;
+		Hidrometro = hidrometro;
 	}
 
-	public void setData_Hora_leitura(Date data_Hora_leitura) {
-		Data_Hora_leitura = data_Hora_leitura;
+
+	public LocalDateTime getData() {
+		return data;
 	}
 
-	public String getNum_Hidrometro() {
-		return Num_Hidrometro;
+
+	public void setData(LocalDateTime data) {
+		this.data = data;
 	}
 
-	public void setNum_Hidrometro(String num_Hidrometro) {
-		Num_Hidrometro = num_Hidrometro;
+
+	public String getHidrometro() {
+		return Hidrometro;
+	}
+
+	public void setHidrometro(String hidrometro) {
+		Hidrometro = hidrometro;
 	}
 
 }

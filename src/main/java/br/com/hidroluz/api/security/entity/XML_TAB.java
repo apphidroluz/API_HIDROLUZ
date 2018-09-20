@@ -1,15 +1,16 @@
 package br.com.hidroluz.api.security.entity;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "XML_TAB")
@@ -22,8 +23,10 @@ public class XML_TAB {
 	@Column(name = "concentrador", nullable = false)
 	private String concentrador;
 
+
+
 	@Column(name = "data_Hora_leitura", nullable = false)
-	private Date data;
+	private LocalDateTime data;
 
 	@Column(name = "num_Hidrometro", nullable = false)
 	private String numHidrometro;
@@ -40,13 +43,33 @@ public class XML_TAB {
 	public XML_TAB() {
 	}
 
-	public XML_TAB(Integer idXML_TAB, String concentrador, Date data, String numHidrometro) {
+
+
+	public XML_TAB(Integer idXML_TAB, String concentrador, LocalDateTime data, String numHidrometro,
+			Double indice_atual, String alarmes, String unit) {
 		super();
 		this.idXML_TAB = idXML_TAB;
 		this.concentrador = concentrador;
 		this.data = data;
 		this.numHidrometro = numHidrometro;
+		this.indice_atual = indice_atual;
+		this.alarmes = alarmes;
+		this.unit = unit;
 	}
+
+
+
+	public LocalDateTime getData() {
+		return data;
+	}
+
+
+
+	public void setData(LocalDateTime data) {
+		this.data = data;
+	}
+
+
 
 	@Override
 	public String toString() {
@@ -71,13 +94,7 @@ public class XML_TAB {
 		this.concentrador = concentrador;
 	}
 
-	public Date getData_Hora_leitura() {
-		return data;
-	}
 
-	public void setData_Hora_leitura(Date data) {
-		this.data = data;
-	}
 
 	public String getNumHidrometro() {
 		return numHidrometro;
