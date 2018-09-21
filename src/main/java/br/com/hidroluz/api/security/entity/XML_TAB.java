@@ -12,6 +12,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name = "XML_TAB")
 public class XML_TAB {
@@ -22,8 +27,6 @@ public class XML_TAB {
 
 	@Column(name = "concentrador", nullable = false)
 	private String concentrador;
-
-
 
 	@Column(name = "data_Hora_leitura", nullable = false)
 	private LocalDateTime data;

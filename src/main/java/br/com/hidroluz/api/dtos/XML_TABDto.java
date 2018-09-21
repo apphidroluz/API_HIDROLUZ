@@ -1,12 +1,6 @@
 package br.com.hidroluz.api.dtos;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
-import javax.validation.constraints.NotEmpty;
-
-import org.hibernate.validator.constraints.Length;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -22,8 +16,7 @@ public class XML_TABDto {
 	
 	@JsonSerialize(using = ToStringSerializer.class)
 	@JsonDeserialize(using = ParseDeserializer.class)
-	@DateTimeFormat(iso = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
-	@JsonFormat(pattern = "YYYY-MM-dd HH:mm")
+	@JsonFormat(pattern = "YYYY-MM-dd")
 	private LocalDateTime data;
 	
 	private String Hidrometro;
@@ -50,8 +43,7 @@ public class XML_TABDto {
 
 
 
-	public XML_TABDto(Integer idXML_TAB, @Length(min = 3, max = 200) String concentrador, LocalDateTime data,
-			@Length(min = 3, max = 200) @NotEmpty(message = "Hidrometro não pode ser vazio.") String hidrometro) {
+	public XML_TABDto(Integer idXML_TAB, String concentrador, LocalDateTime data, String hidrometro) {
 		super();
 		this.idXML_TAB = idXML_TAB;
 		Concentrador = concentrador;
