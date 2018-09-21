@@ -46,7 +46,7 @@ public class ProjetoTesteApplication {
 			cliente.setSenha(SenhaUtils.gerarBCrypt("12345"));
 			cliente.setPerfil(PerfilEnum.ROLE_ADMIN);
 			
-		//	this.clienteRepository.save(cliente);
+			//this.clienteRepository.save(cliente);
 			
 	
 			//System.out.println(dateTime);
