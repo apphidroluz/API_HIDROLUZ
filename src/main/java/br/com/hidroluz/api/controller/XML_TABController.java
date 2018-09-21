@@ -34,7 +34,8 @@ import br.com.hidroluz.api.security.repositories.XML_TABRepository;
 public class XML_TABController {
 	
 	private static final Logger log = LoggerFactory.getLogger(XML_TABController.class);
-	private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	private final SimpleDateFormat dateFormatida = new SimpleDateFormat("yyyy-MM-dd");
+	private final SimpleDateFormat dateFormatvolta = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
 	@Autowired
 	private XML_TABRepository xmlRepository;
@@ -109,7 +110,7 @@ public class XML_TABController {
 			BindingResult result) throws ParseException{
 		Response<XML_TABDto> response = new Response<XML_TABDto>();
 		
-		Date date_info = this.dateFormat.parse(xml_TABDto.getData());
+		Date date_info = this.dateFormatida.parse(xml_TABDto.getData());
 		
 		XML_TAB xmlDto  =  this.xmlRepository.findByNumHidrometroAndData(xml_TABDto.getHidrometro(), date_info);
 		
@@ -134,7 +135,7 @@ public class XML_TABController {
 	private XML_TABDto converterXMLDTO(XML_TAB tab) {
 		XML_TABDto dto = new XML_TABDto();
 		dto.setId(Optional.of(tab.getIdXML_TAB()));
-		dto.setData(this.dateFormat.format(tab.getData()));
+		dto.setData(this.dateFormatvolta.format(tab.getData()));
 		dto.setConcentrador(tab.getConcentrador());
 		dto.setHidrometro(tab.getNumHidrometro());
 		
@@ -147,7 +148,7 @@ public class XML_TABController {
 	private XML_TAB converterDTOparaXMl(XML_TABDto dto,BindingResult result) throws ParseException{
 		XML_TAB tab = new XML_TAB();
 	    tab.setConcentrador(dto.getConcentrador());
-	    tab.setData(this.dateFormat.parse(dto.getData()));
+	    tab.setData(this.dateFormatvolta.parse(dto.getData()));
 	    tab.setNumHidrometro(dto.getHidrometro());
 	    
 	    	
