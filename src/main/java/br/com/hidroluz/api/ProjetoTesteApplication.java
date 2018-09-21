@@ -46,16 +46,15 @@ public class ProjetoTesteApplication {
 			cliente.setSenha(SenhaUtils.gerarBCrypt("12345"));
 			cliente.setPerfil(PerfilEnum.ROLE_ADMIN);
 			
-			//this.clienteRepository.save(cliente);
+		//	this.clienteRepository.save(cliente);
 			
-			DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-			LocalDateTime dateTime = LocalDateTime.of(2018, Month.SEPTEMBER, 18, 00, 00, 00);
+	
 			//System.out.println(dateTime);
 			
 		
 			
-			List<XML_TAB> cli = xmlRepository.findByNumHidrometroAndData("173849273647582", dateTime);
-			cli.forEach(System.out::println);
+			//List<XML_TAB> cli = xmlRepository.findByNumHidrometroAndData("173849273647582", dateTime);
+			//cli.forEach(System.out::println);
 			
 //			List<XML_TAB> cli = xmlRepository.findByNumHidrometro("173849273647582");
 //			cli.forEach(System.out::println);
@@ -63,15 +62,10 @@ public class ProjetoTesteApplication {
 //			System.out.println("### QTD = ");
 //			System.out.println("Hidroluz");
 
-			/*Cliente cliente = new Cliente(null, "TESTE", "TESTE");
->>>>>>> 929ddb2ce8f4a47d13278b560ca8c70b45593c18
+
 			
 		
-			
-<<<<<<< HEAD
-=======
-			System.out.println("### QTD = ");
-			System.out.println("Hidroluz");*/
+
 
 		};
 	}

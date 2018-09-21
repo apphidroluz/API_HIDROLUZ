@@ -1,23 +1,14 @@
 package br.com.hidroluz.api.dtos;
 
-import java.time.LocalDateTime;
+import java.util.Optional;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-
-import br.com.hidroluz.api.security.entity.ParseDeserializer;
 
 public class XML_TABDto {
 
+	private Optional<Integer> id = Optional.empty();
 	private Integer idXML_TAB;
 	private String Concentrador;
-	
-	@JsonSerialize(using = ToStringSerializer.class)
-	@JsonDeserialize(using = ParseDeserializer.class)
-	@JsonFormat(pattern = "YYYY-MM-dd")
-	private LocalDateTime data;
+	private String data;
 	
 	private String Hidrometro;
 
@@ -41,33 +32,46 @@ public class XML_TABDto {
 		Concentrador = concentrador;
 	}
 
+	public String getHidrometro() {
+		return Hidrometro;
+	}
 
 
-	public XML_TABDto(Integer idXML_TAB, String concentrador, LocalDateTime data, String hidrometro) {
+	public void setHidrometro(String hidrometro) {
+		Hidrometro = hidrometro;
+	}
+
+
+	public Optional<Integer> getId() {
+		return id;
+	}
+
+
+	public void setId(Optional<Integer> id) {
+		this.id = id;
+	}
+
+
+	public String getData() {
+		return data;
+	}
+
+
+	public void setData(String data) {
+		this.data = data;
+	}
+
+
+	public XML_TABDto(Optional<Integer> id, Integer idXML_TAB, String concentrador, String data, String hidrometro) {
 		super();
+		this.id = id;
 		this.idXML_TAB = idXML_TAB;
 		Concentrador = concentrador;
 		this.data = data;
 		Hidrometro = hidrometro;
 	}
-
-
-	public LocalDateTime getData() {
-		return data;
-	}
-
-
-	public void setData(LocalDateTime data) {
-		this.data = data;
-	}
-
-
-	public String getHidrometro() {
-		return Hidrometro;
-	}
-
-	public void setHidrometro(String hidrometro) {
-		Hidrometro = hidrometro;
-	}
+	
+	
+	
 
 }
