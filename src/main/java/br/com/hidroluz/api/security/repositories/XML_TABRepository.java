@@ -1,6 +1,5 @@
 package br.com.hidroluz.api.security.repositories;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +19,7 @@ public interface XML_TABRepository extends JpaRepository<XML_TAB, Integer> {
 	
 	List<XML_TAB> findByNumHidrometro(String numHidrometro);
 	
-	List<XML_TAB> findByNumHidrometroAndData(String numHidrometro, LocalDateTime data);
+	XML_TAB findByNumHidrometroAndData(String numHidrometro, Date data);
 	
 
 }

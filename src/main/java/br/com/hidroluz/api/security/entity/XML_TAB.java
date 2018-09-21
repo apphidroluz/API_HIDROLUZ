@@ -1,7 +1,8 @@
 package br.com.hidroluz.api.security.entity;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
-
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +15,12 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "XML_TAB")
-public class XML_TAB {
+public class XML_TAB implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,9 +30,9 @@ public class XML_TAB {
 	private String concentrador;
 
 
-
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "data_Hora_leitura", nullable = false)
-	private LocalDateTime data;
+	private Date data;
 
 	@Column(name = "num_Hidrometro", nullable = false)
 	private String numHidrometro;
@@ -45,7 +51,7 @@ public class XML_TAB {
 
 
 
-	public XML_TAB(Integer idXML_TAB, String concentrador, LocalDateTime data, String numHidrometro,
+	public XML_TAB(Integer idXML_TAB, String concentrador, Date data, String numHidrometro,
 			Double indice_atual, String alarmes, String unit) {
 		super();
 		this.idXML_TAB = idXML_TAB;
@@ -59,13 +65,13 @@ public class XML_TAB {
 
 
 
-	public LocalDateTime getData() {
+	public Date getData() {
 		return data;
 	}
 
 
 
-	public void setData(LocalDateTime data) {
+	public void setData(Date data) {
 		this.data = data;
 	}
 
