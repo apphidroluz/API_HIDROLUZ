@@ -9,6 +9,6 @@ import br.com.hidroluz.api.security.entity.XML_TAB;
 
 public interface XML_TabService {
 	
-	XML_TAB findByNumHidrometroAndData(String numHidrometro, Date data);
+	Page<XML_TAB> findByNumHidrometroAndData(String numHidrometro, String data);
 
 }

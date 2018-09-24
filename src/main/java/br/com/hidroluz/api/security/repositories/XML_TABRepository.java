@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -19,7 +21,7 @@ public interface XML_TABRepository extends JpaRepository<XML_TAB, Integer> {
 	
 	List<XML_TAB> findByNumHidrometro(String numHidrometro);
 	
-	XML_TAB findByNumHidrometroAndData(String numHidrometro, Date data);
+	Page<XML_TAB> findByNumHidrometroAndData(String numHidrometro, Date data, Pageable pageable);
 	
 
 }
