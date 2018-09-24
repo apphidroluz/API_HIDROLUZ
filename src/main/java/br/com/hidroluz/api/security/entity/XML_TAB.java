@@ -16,9 +16,6 @@ import javax.persistence.TemporalType;
 @Table(name = "XML_TAB")
 public class XML_TAB implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id

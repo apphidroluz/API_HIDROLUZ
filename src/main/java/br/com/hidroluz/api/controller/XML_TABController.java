@@ -73,7 +73,7 @@ public class XML_TABController {
 		
 		Response<Page<XML_TABDto>> response = new Response<Page<XML_TABDto>>();
 
-		Date date_info = this.dateFormatida.parse(xml_TABDto.getData());
+		Date date_info = this.dateFormatida.parse(xml_TABDto.getDataDe());
 
 		Page<XML_TAB> xmlDto = this.xmlRepository.findByConcentradorAndData(xml_TABDto.getConcentrador(), date_info,
 				PageRequest.of(0, 5));
@@ -122,7 +122,7 @@ public class XML_TABController {
 		
 		Response<Page<XML_TABDto>> response = new Response<Page<XML_TABDto>>();
 
-		Date date_info = this.dateFormatida.parse(xml_TABDto.getData());
+		Date date_info = this.dateFormatida.parse(xml_TABDto.getDataDe());
 
 		Page<XML_TAB> xmlDto = this.xmlRepository.findByNumHidrometroAndData(xml_TABDto.getHidrometro(), date_info,
 				PageRequest.of(0, 5));
@@ -143,7 +143,7 @@ public class XML_TABController {
 		XML_TABDto dto = new XML_TABDto();
 		dto.setId(Optional.of(tab.getIdXML_TAB()));
 
-		dto.setData(this.dateFormatvolta.format(tab.getData()));
+		dto.setDataDe(this.dateFormatvolta.format(tab.getData()));
 
 		dto.setConcentrador(tab.getConcentrador());
 		dto.setHidrometro(tab.getNumHidrometro());
@@ -158,7 +158,7 @@ public class XML_TABController {
 		tab.setConcentrador(dto.getConcentrador());
 		tab.setNumHidrometro(dto.getHidrometro());
 		tab.setConcentrador(dto.getConcentrador());
-		tab.setData(this.dateFormatvolta.parse(dto.getData()));
+		tab.setData(this.dateFormatvolta.parse(dto.getDataDe()));
 		tab.setNumHidrometro(dto.getHidrometro());
 
 		return tab;

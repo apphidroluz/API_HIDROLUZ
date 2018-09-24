@@ -21,7 +21,7 @@ import br.com.hidroluz.api.security.entity.XML_TAB;
 			query = "SELECT x FROM XML_TAB x WHERE x.date between :" + " 2018-09-21" + " AND :" + "2018-09-22") })
 public interface XML_TABRepository extends JpaRepository<XML_TAB, Integer> {
 	
-	Page<XML_TAB> findByConcentrador(String concentrador,Pageable pageableS);
+	Page<XML_TAB> findByConcentrador(String concentrador,Pageable pageable);
 	
 	Page<XML_TAB> findByConcentradorAndData(String concentrador, Date data, Pageable pageable);
 	
