@@ -72,12 +72,20 @@ public class XML_TABController {
 	public ResponseEntity<Response<Page<XML_TABDto>>> buscarConceAndData(@Valid @RequestBody XML_TABDto xml_TABDto)
 			throws ParseException {
 
-		Response<Page<XML_TABDto>> response = new Response<Page<XML_TABDto>>();
-
 		Date date_info = this.dateFormatida.parse(xml_TABDto.getDataDe());
 
-		Page<XML_TAB> xmlDto = this.xmlRepository.findByConcentradorAndData(xml_TABDto.getConcentrador(), date_info,
-				PageRequest.of(0, 5));
+		Date date_info2 = this.dateFormatida.parse(xml_TABDto.getDataDe());
+
+		Calendar c = Calendar.getInstance();
+		c.setTime(date_info2);
+		c.add(Calendar.DATE, 1);
+
+		Date currentDatePlusOne = c.getTime();
+
+		Response<Page<XML_TABDto>> response = new Response<Page<XML_TABDto>>();
+
+		Page<XML_TAB> xmlDto = this.xmlRepository.findByConcentradorAndDataBetween(xml_TABDto.getConcentrador(),
+				date_info, currentDatePlusOne, PageRequest.of(0, 5));
 
 		Page<XML_TABDto> listadto = xmlDto.map(
 
@@ -123,26 +131,27 @@ public class XML_TABController {
 		Response<Page<XML_TAB>> response = new Response<Page<XML_TAB>>();
 
 		Date date_info = this.dateFormatida.parse(xml_TABDto.getDataDe());
-		
-		
+
 		Date date_info2 = this.dateFormatida.parse(xml_TABDto.getDataDe());
 
 		Calendar c = Calendar.getInstance();
 		c.setTime(date_info2);
-	    c.add(Calendar.DATE, 1);
-		
-	    Date currentDatePlusOne = c.getTime();
-	    
+		c.add(Calendar.DATE, 1);
+
+		Date currentDatePlusOne = c.getTime();
+
 		System.out.println(currentDatePlusOne);
 
-		Page<XML_TAB> xmlDto = this.xmlRepository.findByNumHidrometroAndDataBetween(xml_TABDto.getHidrometro(), date_info,
-				currentDatePlusOne, PageRequest.of(0, 5));
+		Page<XML_TAB> xmlDto = this.xmlRepository.findByNumHidrometroAndDataBetween(xml_TABDto.getHidrometro(),
+				date_info, currentDatePlusOne, PageRequest.of(0, 5));
 
-    	Page<XML_TAB> listadto = xmlDto.map(
-
-				xmlDto2 -> this.converterDTOparaXMl(xmlDto2)
-
-		);
+		/*
+		 * Page<XML_TAB> listadto = xmlDto.map(
+		 * 
+		 * xmlDto2 -> this.converterDTOparaXMl(xmlDto2)
+		 * 
+		 * );
+		 */
 
 		response.setData(xmlDto);
 
@@ -167,8 +176,8 @@ public class XML_TABController {
 		tab.setConcentrador(dto.getConcentrador());
 		tab.setNumHidrometro(dto.getNumHidrometro());
 		tab.setConcentrador(dto.getConcentrador());
-		tab.setData(this.dateFormatvolta.parse(dto.getData()));
-		
+		// tab.setData(this.dateFormatvolta.parse(dto.getData()));
+
 		return tab;
 
 	}
