@@ -138,11 +138,11 @@ public class XML_TABController {
 		Page<XML_TAB> xmlDto = this.xmlRepository.findByNumHidrometroAndDataBetween(xml_TABDto.getHidrometro(), date_info,
 				currentDatePlusOne, PageRequest.of(0, 5));
 
-    	Page<XML_TAB> listadto = xmlDto.map(
+    	/*Page<XML_TAB> listadto = xmlDto.map(
 
 				xmlDto2 -> this.converterDTOparaXMl(xmlDto2)
 
-		);
+		);*/
 
 		response.setData(xmlDto);
 
@@ -167,7 +167,7 @@ public class XML_TABController {
 		tab.setConcentrador(dto.getConcentrador());
 		tab.setNumHidrometro(dto.getNumHidrometro());
 		tab.setConcentrador(dto.getConcentrador());
-		tab.setData(this.dateFormatvolta.parse(dto.getData()));
+		//tab.setData(this.dateFormatvolta.parse(dto.getData()));
 		
 		return tab;
 
