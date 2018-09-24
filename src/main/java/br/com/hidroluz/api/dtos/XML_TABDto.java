@@ -1,11 +1,7 @@
 package br.com.hidroluz.api.dtos;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
-import javax.validation.constraints.NotEmpty;
-
-import org.hibernate.validator.constraints.Length;
 
 public class XML_TABDto {
 
@@ -39,6 +35,7 @@ public class XML_TABDto {
 	public String getHidrometro() {
 		return Hidrometro;
 	}
+
 
 	public void setHidrometro(String hidrometro) {
 		Hidrometro = hidrometro;

@@ -1,7 +1,6 @@
 package br.com.hidroluz.api.security.entity;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -29,7 +28,6 @@ public class XML_TAB implements Serializable {
 	@Column(name = "concentrador", nullable = false)
 	private String concentrador;
 
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "data_Hora_leitura", nullable = false)
 	private Date data;
@@ -49,10 +47,8 @@ public class XML_TAB implements Serializable {
 	public XML_TAB() {
 	}
 
-
-
-	public XML_TAB(Integer idXML_TAB, String concentrador, Date data, String numHidrometro,
-			Double indice_atual, String alarmes, String unit) {
+	public XML_TAB(Integer idXML_TAB, String concentrador, Date data, String numHidrometro, Double indice_atual,
+			String alarmes, String unit) {
 		super();
 		this.idXML_TAB = idXML_TAB;
 		this.concentrador = concentrador;
@@ -63,25 +59,19 @@ public class XML_TAB implements Serializable {
 		this.unit = unit;
 	}
 
-
-
 	public Date getData() {
 		return data;
 	}
-
-
 
 	public void setData(Date data) {
 		this.data = data;
 	}
 
-
-
 	@Override
 	public String toString() {
-		return "XML_TAB [idXML_TAB=" + idXML_TAB + ", concentrador=" + concentrador + ", data_Hora_leitura="
-				+ data + ", num_Hidrometro=" + numHidrometro + ", indice_atual=" + indice_atual
-				+ ", alarmes=" + alarmes + ", unit=" + unit + "]";
+		return "XML_TAB [idXML_TAB=" + idXML_TAB + ", concentrador=" + concentrador + ", data_Hora_leitura=" + data
+				+ ", num_Hidrometro=" + numHidrometro + ", indice_atual=" + indice_atual + ", alarmes=" + alarmes
+				+ ", unit=" + unit + "]";
 	}
 
 	public Integer getIdXML_TAB() {
@@ -99,8 +89,6 @@ public class XML_TAB implements Serializable {
 	public void setConcentrador(String concentrador) {
 		this.concentrador = concentrador;
 	}
-
-
 
 	public String getNumHidrometro() {
 		return numHidrometro;
