@@ -3,8 +3,10 @@ package br.com.hidroluz.api.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.hidroluz.api.dtos.XML_TABDto;
+import br.com.hidroluz.api.dtos.XML_TAB_RET;
 import br.com.hidroluz.api.responses.Response;
 import br.com.hidroluz.api.security.entity.XML_TAB;
 import br.com.hidroluz.api.security.repositories.XML_TABRepository;
@@ -32,7 +35,7 @@ import br.com.hidroluz.api.security.repositories.XML_TABRepository;
 public class XML_TABController {
 
 	private final SimpleDateFormat dateFormatida = new SimpleDateFormat("yyyy-MM-dd");
-	private final SimpleDateFormat dateFormatvolta = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	private final SimpleDateFormat dateFormatvolta = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
 	@Autowired
 	private XML_TABRepository xmlRepository;
@@ -56,13 +59,7 @@ public class XML_TABController {
 		}
 
 		Page<XML_TAB> xml = this.xmlRepository.findByConcentrador(xmlDto.getConcentrador(), PageRequest.of(0, 5));
-		Page<XML_TABDto> listadto = xml.map(
-
-				xmlDto2 -> this.converterXMLDTO(xmlDto2)
-
-		);
-
-		response.setData(listadto);
+	
 
 		return ResponseEntity.ok(response);
 
@@ -79,13 +76,7 @@ public class XML_TABController {
 		Page<XML_TAB> xmlDto = this.xmlRepository.findByConcentradorAndData(xml_TABDto.getConcentrador(), date_info,
 				PageRequest.of(0, 5));
 
-		Page<XML_TABDto> listadto = xmlDto.map(
 
-				xmlDto2 -> this.converterXMLDTO(xmlDto2)
-
-		);
-
-		response.setData(listadto);
 
 		return ResponseEntity.ok(response);
 
@@ -104,23 +95,23 @@ public class XML_TABController {
 
 		Page<XML_TAB> xml = this.xmlRepository.findByNumHidrometro(xmlDto.getHidrometro(), PageRequest.of(0, 5));
 
-		Page<XML_TABDto> listadto = xml.map(
+/*		Page<XML_TABDto> listadto = xml.map(
 
 				xmlDto2 -> this.converterXMLDTO(xmlDto2)
 
-		);
+		);*/
 
-		response.setData(listadto);
+		//response.setData(listadto);
 
 		return ResponseEntity.ok(response);
 
 	}
 
 	@PostMapping(value = "/vnumhidroedata/buscarxml")
-	public ResponseEntity<Response<Page<XML_TAB>>> buscarNumHidroAndData(@Valid @RequestBody XML_TABDto xml_TABDto)
+	public ResponseEntity<Response<Page<XML_TAB_RET>>> buscarNumHidroAndData(@Valid @RequestBody XML_TABDto xml_TABDto)
 			throws ParseException {
 
-		Response<Page<XML_TAB>> response = new Response<Page<XML_TAB>>();
+		Response<Page<XML_TAB_RET>> response = new Response<Page<XML_TAB_RET>>();
 
 		Date date_info = this.dateFormatida.parse(xml_TABDto.getDataDe());
 		
@@ -137,38 +128,71 @@ public class XML_TABController {
 
 		Page<XML_TAB> xmlDto = this.xmlRepository.findByNumHidrometroAndDataBetween(xml_TABDto.getHidrometro(), date_info,
 				currentDatePlusOne, PageRequest.of(0, 5));
+		
+		
+		
+     	Page<XML_TAB_RET> listadto = xmlDto.map(
 
+<<<<<<< HEAD
     	/*Page<XML_TAB> listadto = xmlDto.map(
 
 				xmlDto2 -> this.converterDTOparaXMl(xmlDto2)
+=======
+				xmlDto2 -> this.converterXMLDTO(xmlDto2)
+>>>>>>> e7ff96114cdf2435274f28bd6d1cbc8151401eeb
 
 		);*/
 
-		response.setData(xmlDto);
+		response.setData(listadto);
 
 		return ResponseEntity.ok(response);
 
 	}
 
-	private XML_TABDto converterXMLDTO(XML_TAB tab) {
-		XML_TABDto dto = new XML_TABDto();
-		dto.setId(Optional.of(tab.getIdXML_TAB()));
-		dto.setDataDe(this.dateFormatvolta.format(tab.getData()));
+	private XML_TAB_RET converterXMLDTO(XML_TAB tab) {
+		XML_TAB_RET dto = new XML_TAB_RET();
+		
+		dto.setIdXML_TAB(tab.getIdXML_TAB());
+		dto.setData(this.dateFormatvolta.format(tab.getData()));
 		dto.setConcentrador(tab.getConcentrador());
-		dto.setHidrometro(tab.getNumHidrometro());
+		dto.setNumHidrometro(tab.getNumHidrometro());
+		dto.setAlarmes(tab.getAlarmes());
+		dto.setIndice_atual(tab.getIndice_atual());
+		dto.setUnit(tab.getUnit());
 
 		return dto;
 
 	}
 
-	private XML_TAB converterDTOparaXMl(XML_TAB dto, BindingResult result) throws ParseException {
+	private XML_TAB converterDTOparaXMl(XML_TAB_RET dto) {
 		XML_TAB tab = new XML_TAB();
 
 		tab.setConcentrador(dto.getConcentrador());
 		tab.setNumHidrometro(dto.getNumHidrometro());
 		tab.setConcentrador(dto.getConcentrador());
+<<<<<<< HEAD
 		//tab.setData(this.dateFormatvolta.parse(dto.getData()));
+=======
+
+		String teste = this.dateFormatvolta.format(dto.getData());
+
+		System.out.println(teste);
+
+		try {
+			Date teste2 = this.dateFormatvolta.parse(teste);
+			
+			System.out.println(teste2);
+			
+			tab.setData(teste2);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
+>>>>>>> e7ff96114cdf2435274f28bd6d1cbc8151401eeb
+		
+	
+
 		return tab;
 
 	}
