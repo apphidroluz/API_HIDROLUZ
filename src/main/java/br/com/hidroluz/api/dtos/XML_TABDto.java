@@ -2,20 +2,19 @@ package br.com.hidroluz.api.dtos;
 
 import java.util.Optional;
 
-
 public class XML_TABDto {
 
 	private Optional<Integer> id = Optional.empty();
 	private Integer idXML_TAB;
 	private String Concentrador;
-	private String data;
-	
+	private String dataDe;
+	private String dataAte;
+
 	private String Hidrometro;
 
 	public XML_TABDto() {
 	}
 
-	
 	public Integer getIdXML_TAB() {
 		return idXML_TAB;
 	}
@@ -36,42 +35,43 @@ public class XML_TABDto {
 		return Hidrometro;
 	}
 
-
 	public void setHidrometro(String hidrometro) {
 		Hidrometro = hidrometro;
 	}
-
 
 	public Optional<Integer> getId() {
 		return id;
 	}
 
-
 	public void setId(Optional<Integer> id) {
 		this.id = id;
 	}
 
-
-	public String getData() {
-		return data;
+	public String getDataDe() {
+		return dataDe;
 	}
 
-
-	public void setData(String data) {
-		this.data = data;
+	public void setDataDe(String dataDe) {
+		this.dataDe = dataDe;
 	}
 
+	public String getDataAte() {
+		return dataAte;
+	}
 
-	public XML_TABDto(Optional<Integer> id, Integer idXML_TAB, String concentrador, String data, String hidrometro) {
+	public void setDataAte(String dataAte) {
+		this.dataAte = dataAte;
+	}
+
+	public XML_TABDto(Optional<Integer> id, Integer idXML_TAB, String concentrador, String hidrometro, 
+			String dataDe, String dataAte) {
 		super();
 		this.id = id;
 		this.idXML_TAB = idXML_TAB;
 		Concentrador = concentrador;
-		this.data = data;
+		this.dataDe = dataDe;
+		this.dataAte = dataAte;
 		Hidrometro = hidrometro;
 	}
-	
-	
-	
 
 }
