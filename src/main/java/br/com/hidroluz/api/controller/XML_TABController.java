@@ -133,15 +133,9 @@ public class XML_TABController {
 		
      	Page<XML_TAB_RET> listadto = xmlDto.map(
 
-<<<<<<< HEAD
-    	/*Page<XML_TAB> listadto = xmlDto.map(
-
-				xmlDto2 -> this.converterDTOparaXMl(xmlDto2)
-=======
 				xmlDto2 -> this.converterXMLDTO(xmlDto2)
->>>>>>> e7ff96114cdf2435274f28bd6d1cbc8151401eeb
 
-		);*/
+		);
 
 		response.setData(listadto);
 
@@ -170,9 +164,6 @@ public class XML_TABController {
 		tab.setConcentrador(dto.getConcentrador());
 		tab.setNumHidrometro(dto.getNumHidrometro());
 		tab.setConcentrador(dto.getConcentrador());
-<<<<<<< HEAD
-		//tab.setData(this.dateFormatvolta.parse(dto.getData()));
-=======
 
 		String teste = this.dateFormatvolta.format(dto.getData());
 
@@ -189,7 +180,6 @@ public class XML_TABController {
 			e.printStackTrace();
 		}
 		
->>>>>>> e7ff96114cdf2435274f28bd6d1cbc8151401eeb
 		
 	
 
