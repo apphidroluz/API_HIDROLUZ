@@ -143,7 +143,17 @@ public class XML_TABController {
 
 		Date date_info = this.dateFormatida.parse(xml_TABDto.getDataDe());
 
-		Date date_info2 = this.dateFormatida.parse(xml_TABDto.getDataDe());
+		Date date_info2;
+		
+		if (xml_TABDto.getDataAte() == null) {
+			
+			date_info2 = this.dateFormatida.parse(xml_TABDto.getDataDe());
+
+			} else {
+				
+			date_info2 = this.dateFormatida.parse(xml_TABDto.getDataAte());
+
+			}
 
 		Calendar c = Calendar.getInstance();
 		c.setTime(date_info2);
