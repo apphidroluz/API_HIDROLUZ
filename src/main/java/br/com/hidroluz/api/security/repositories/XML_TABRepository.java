@@ -23,7 +23,7 @@ public interface XML_TABRepository extends JpaRepository<XML_TAB, Integer> {
 	
 	Page<XML_TAB> findByConcentrador(String concentrador,Pageable pageable);
 	
-	Page<XML_TAB> findByConcentradorAndData(String concentrador, Date data, Pageable pageable);
+	Page<XML_TAB> findByConcentradorAndDataBetween(String concentrador, Date dataDe, Date dataAte, Pageable pageable);
 	
 	Page<XML_TAB> findByNumHidrometro(String numHidrometro, Pageable pageable);
 	
