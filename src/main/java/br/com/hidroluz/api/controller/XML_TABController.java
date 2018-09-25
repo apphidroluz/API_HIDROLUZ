@@ -120,10 +120,14 @@ public class XML_TABController {
 		Date date_info = this.dateFormatida.parse(xml_TABDto.getDataDe());
 
 		Date date_info2 = this.dateFormatida.parse(xml_TABDto.getDataDe());
+		
+		
 
 		Calendar c = Calendar.getInstance();
 		c.setTime(date_info2);
 		c.add(Calendar.DATE, 1);
+		
+		Date currentDatePlusOne = c.getTime();
 
 
 		Page<XML_TAB> xmlDto = this.xmlRepository.findByNumHidrometroAndDataBetween(xml_TABDto.getHidrometro(), date_info,
@@ -140,9 +144,9 @@ public class XML_TABController {
 		 * Page<XML_TAB> listadto = xmlDto.map(
 		 * 
 		 * xmlDto2 -> this.converterDTOparaXMl(xmlDto2)
-		 * 
-		 * );
 		 */
+		  );
+		 
 
 		response.setData(listadto);
 
