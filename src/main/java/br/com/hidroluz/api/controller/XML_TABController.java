@@ -19,6 +19,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.hidroluz.api.dtos.ConcentradorDTO;
+import br.com.hidroluz.api.dtos.ConcentradorDataDTO;
+import br.com.hidroluz.api.dtos.NumHidrometroDTO;
+import br.com.hidroluz.api.dtos.NumHidrometroDataDTO;
 import br.com.hidroluz.api.dtos.XML_TABDto;
 import br.com.hidroluz.api.dtos.XML_TAB_RET;
 import br.com.hidroluz.api.responses.Response;
@@ -45,7 +49,7 @@ public class XML_TABController {
 
 	@PostMapping(value = "/vcon/buscarxml")
 	public ResponseEntity<Response<Page<XML_TAB_RET>>> buscarConce(
-			@PathParam("buscar") @Valid @RequestBody XML_TABDto xmlDto, BindingResult result) {
+			@PathParam("buscar") @Valid @RequestBody ConcentradorDTO xmlDto, BindingResult result) {
 		Response<Page<XML_TAB_RET>> response = new Response<Page<XML_TAB_RET>>();
 
 		if (result.hasErrors()) {
@@ -54,7 +58,7 @@ public class XML_TABController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		Page<XML_TAB> xml = this.xmlRepository.findByConcentrador(xmlDto.getConcentrador(), PageRequest.of(0, 5));
+		Page<XML_TAB> xml = this.xmlRepository.findByConcentrador(xmlDto.getConcentrador(), PageRequest.of(0, 25));
 		
 		Page<XML_TAB_RET> listadto = xml.map(
 
@@ -69,7 +73,7 @@ public class XML_TABController {
 	}
 
 	@PostMapping(value = "/vconedate/buscarxml")
-	public ResponseEntity<Response<Page<XML_TAB_RET>>> buscarConceAndData(@Valid @RequestBody XML_TABDto xml_TABDto)
+	public ResponseEntity<Response<Page<XML_TAB_RET>>> buscarConceAndData(@Valid @RequestBody ConcentradorDataDTO xml_TABDto)
 			throws ParseException {
 
 		Response<Page<XML_TAB_RET>> response = new Response<Page<XML_TAB_RET>>();
@@ -95,7 +99,7 @@ public class XML_TABController {
 		Date currentDatePlusOne = c.getTime();
 
 		Page<XML_TAB> xmlDto = this.xmlRepository.findByConcentradorAndDataBetween(xml_TABDto.getConcentrador(),
-				date_info, currentDatePlusOne, PageRequest.of(0, 5));
+				date_info, currentDatePlusOne, PageRequest.of(0, 25));
 
 		Page<XML_TAB_RET> listadto = xmlDto.map(
 
@@ -111,7 +115,7 @@ public class XML_TABController {
 
 	@PostMapping(value = "/vnumhidro/buscarxml")
 	public ResponseEntity<Response<Page<XML_TAB_RET>>> buscarNumHidro(
-			@PathParam("buscar") @Valid @RequestBody XML_TABDto xmlDto, BindingResult result) {
+			@PathParam("buscar") @Valid @RequestBody NumHidrometroDTO xmlDto, BindingResult result) {
 		
 		Response<Page<XML_TAB_RET>> response = new Response<Page<XML_TAB_RET>>();
 
@@ -121,7 +125,7 @@ public class XML_TABController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		Page<XML_TAB> xml = this.xmlRepository.findByNumHidrometro(xmlDto.getHidrometro(), PageRequest.of(0, 5));
+		Page<XML_TAB> xml = this.xmlRepository.findByNumHidrometro(xmlDto.getNumHidrometro(), PageRequest.of(0, 25));
 		
 		Page<XML_TAB_RET> listadto = xml.map(
 
@@ -136,7 +140,7 @@ public class XML_TABController {
 	}
 
 	@PostMapping(value = "/vnumhidroedata/buscarxml")
-	public ResponseEntity<Response<Page<XML_TAB_RET>>> buscarNumHidroAndData(@Valid @RequestBody XML_TABDto xml_TABDto)
+	public ResponseEntity<Response<Page<XML_TAB_RET>>> buscarNumHidroAndData(@Valid @RequestBody NumHidrometroDataDTO xml_TABDto)
 			throws ParseException {
 
 		Response<Page<XML_TAB_RET>> response = new Response<Page<XML_TAB_RET>>();
@@ -163,8 +167,8 @@ public class XML_TABController {
 
 		System.out.println(currentDatePlusOne);
 
-		Page<XML_TAB> xmlDto = this.xmlRepository.findByNumHidrometroAndDataBetween(xml_TABDto.getHidrometro(),
-				date_info, currentDatePlusOne, PageRequest.of(0, 5));
+		Page<XML_TAB> xmlDto = this.xmlRepository.findByNumHidrometroAndDataBetween(xml_TABDto.getNumHidrometro(),
+				date_info, currentDatePlusOne, PageRequest.of(0, 25));
 
 		Page<XML_TAB_RET> listadto = xmlDto.map(
 

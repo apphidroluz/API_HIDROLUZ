@@ -7,9 +7,11 @@ public class ConcentradorDTO {
 	@NotEmpty(message = "Numero do Concentrador deve ser preenchido")
 	//@Length(min = 15, max = 15, message = "Numero do concentrador deve possuir X caracteres")
 	private String concentrador;
+	
+	public ConcentradorDTO() {
+	}
 
 	public ConcentradorDTO(String concentrador) {
-		super();
 		this.concentrador = concentrador;
 	}
 

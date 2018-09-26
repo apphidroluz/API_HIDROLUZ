@@ -17,6 +17,9 @@ public class NumHidrometroDataDTO {
 		this.dataDe = dataDe;
 		this.dataAte = dataAte;
 	}
+	
+	public NumHidrometroDataDTO() {
+	}
 
 	public String getNumHidrometro() {
 		return numHidrometro;
