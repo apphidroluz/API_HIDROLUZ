@@ -40,8 +40,8 @@ public class XML_TAB implements Serializable {
 	@Column(name = "unit", nullable = false)
 	private String unit;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Concentrador concentrador;
+	@Column(name = "concentrador", nullable = false)
+	private String concentrador;
 
 	public XML_TAB() {
 	}
@@ -49,7 +49,7 @@ public class XML_TAB implements Serializable {
 	
 
 	public XML_TAB(Integer idXML_TAB, Date data, String numHidrometro, Double indice_atual, String alarmes, String unit,
-			Concentrador concentrador) {
+			String concentrador) {
 		super();
 		this.idXML_TAB = idXML_TAB;
 		this.data = data;
@@ -119,11 +119,11 @@ public class XML_TAB implements Serializable {
 		this.unit = unit;
 	}
 
-	public Concentrador getConcentrador() {
+	public String getConcentrador() {
 		return concentrador;
 	}
 
-	public void setConcentrador(Concentrador concentrador) {
+	public void setConcentrador(String concentrador) {
 		this.concentrador = concentrador;
 	}
 

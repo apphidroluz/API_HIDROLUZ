@@ -36,17 +36,17 @@ public class ProjetoTesteApplication {
 	public CommandLineRunner commandLineRunner() {
 		return args -> {
 
-			Cliente cliente = new Cliente();
-			cliente.setLogin("ROBSON");
+			Optional<Cliente> cliente;
+			/*cliente.setLogin("ROBSON");
 			cliente.setSenha(SenhaUtils.gerarBCrypt("12345"));
 			cliente.setPerfil(PerfilEnum.ROLE_ADMIN);
-			
+			*/
 			//this.clienteRepository.save(cliente);
 			
 	
 			//System.out.println(cliente);
 
-			//cliente = this.clienteRepository.findById(1);
+			cliente = this.clienteRepository.findById(1);
 			
 	
 			//System.out.println(dateTime);

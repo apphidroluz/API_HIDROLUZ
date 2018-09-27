@@ -58,7 +58,7 @@ public class XML_TABController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		Page<XML_TAB> xml = this.xmlRepository.findByConcentrador(concentradorDto.getConcentrador().getNumConcentrador(), PageRequest.of(0, 25));
+		Page<XML_TAB> xml = this.xmlRepository.findByConcentrador(concentradorDto.getConcentrador(), PageRequest.of(0, 25));
 		
 		Page<XML_TAB_RET> listadto = xml.map(
 
@@ -187,7 +187,7 @@ public class XML_TABController {
 
 		dto.setIdXML_TAB(tab.getIdXML_TAB());
 		dto.setData(this.dateFormatvolta.format(tab.getData()));
-		dto.setConcentrador(tab.getConcentrador().getNumConcentrador());
+		dto.setConcentrador(tab.getConcentrador());
 		dto.setNumHidrometro(tab.getNumHidrometro());
 		dto.setAlarmes(tab.getAlarmes());
 		dto.setIndice_atual(tab.getIndice_atual());
@@ -200,7 +200,7 @@ public class XML_TABController {
 	private XML_TAB converterDTOparaXMl(XML_TAB_RET dto) {
 		XML_TAB tab = new XML_TAB();
 
-	/*	tab.setConcentrador(dto.getConcentrador());
+		tab.setConcentrador(dto.getConcentrador());
 		tab.setNumHidrometro(dto.getNumHidrometro());
 		tab.setConcentrador(dto.getConcentrador());
 
@@ -217,7 +217,7 @@ public class XML_TABController {
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 
 		return tab;
 

@@ -1,7 +1,6 @@
 package br.com.hidroluz.api.dtos;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Null;
 
 public class NumHidrometroDataDTO {
 

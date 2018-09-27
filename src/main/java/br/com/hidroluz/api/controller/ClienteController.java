@@ -60,7 +60,7 @@ public class ClienteController {
 
 		Cliente cliente = this.clienteRepository.findByLogin(clienteDto.getLogin());
 		
-		System.out.println(cliente);
+		System.out.println(cliente.getConcentradores());
 
 		String senhaEncode = SenhaUtils.gerarBCrypt(cliente.getSenha());
 
