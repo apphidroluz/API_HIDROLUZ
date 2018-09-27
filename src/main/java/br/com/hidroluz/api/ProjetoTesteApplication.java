@@ -14,7 +14,7 @@ import br.com.hidroluz.api.security.entity.Cliente;
 import br.com.hidroluz.api.security.enums.PerfilEnum;
 import br.com.hidroluz.api.security.repositories.ClienteRepository;
 import br.com.hidroluz.api.security.repositories.XML_TABRepository;
-import br.com.hidroluz.api.utils.SenhaUtils;
+import br.com.hidroluz.api.utils.SenhaUtil;
 
 
 @SpringBootApplication
