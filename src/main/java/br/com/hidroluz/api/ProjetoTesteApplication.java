@@ -2,6 +2,7 @@ package br.com.hidroluz.api;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -41,6 +42,11 @@ public class ProjetoTesteApplication {
 			cliente.setPerfil(PerfilEnum.ROLE_ADMIN);
 			
 			//this.clienteRepository.save(cliente);
+			
+	
+			//System.out.println(cliente);
+
+			//cliente = this.clienteRepository.findById(1);
 			
 	
 			//System.out.println(dateTime);

@@ -23,9 +23,9 @@ import br.com.hidroluz.api.dtos.ConcentradorDTO;
 import br.com.hidroluz.api.dtos.ConcentradorDataDTO;
 import br.com.hidroluz.api.dtos.NumHidrometroDTO;
 import br.com.hidroluz.api.dtos.NumHidrometroDataDTO;
-import br.com.hidroluz.api.dtos.XML_TABDto;
 import br.com.hidroluz.api.dtos.XML_TAB_RET;
 import br.com.hidroluz.api.responses.Response;
+import br.com.hidroluz.api.security.entity.Concentrador;
 import br.com.hidroluz.api.security.entity.XML_TAB;
 import br.com.hidroluz.api.security.repositories.XML_TABRepository;
 
@@ -49,7 +49,7 @@ public class XML_TABController {
 
 	@PostMapping(value = "/vcon/buscarxml")
 	public ResponseEntity<Response<Page<XML_TAB_RET>>> buscarConce(
-			@PathParam("buscar") @Valid @RequestBody ConcentradorDTO xmlDto, BindingResult result) {
+			@PathParam("buscar") @Valid @RequestBody ConcentradorDTO concentradorDto, BindingResult result) {
 		Response<Page<XML_TAB_RET>> response = new Response<Page<XML_TAB_RET>>();
 
 		if (result.hasErrors()) {
@@ -58,7 +58,7 @@ public class XML_TABController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		Page<XML_TAB> xml = this.xmlRepository.findByConcentrador(xmlDto.getConcentrador(), PageRequest.of(0, 25));
+		Page<XML_TAB> xml = this.xmlRepository.findByConcentrador(concentradorDto.getConcentrador().getNumConcentrador(), PageRequest.of(0, 25));
 		
 		Page<XML_TAB_RET> listadto = xml.map(
 
@@ -73,22 +73,22 @@ public class XML_TABController {
 	}
 
 	@PostMapping(value = "/vconedate/buscarxml")
-	public ResponseEntity<Response<Page<XML_TAB_RET>>> buscarConceAndData(@Valid @RequestBody ConcentradorDataDTO xml_TABDto)
+	public ResponseEntity<Response<Page<XML_TAB_RET>>> buscarConceAndData(@Valid @RequestBody ConcentradorDataDTO concentradorDataDto)
 			throws ParseException {
 
 		Response<Page<XML_TAB_RET>> response = new Response<Page<XML_TAB_RET>>();
 
-		Date date_info = this.dateFormatida.parse(xml_TABDto.getDataDe());
+		Date date_info = this.dateFormatida.parse(concentradorDataDto.getDataDe());
 
 		Date date_info2 ;
 
-		if (xml_TABDto.getDataAte() == null) {
+		if (concentradorDataDto.getDataAte() == null) {
 			
-		date_info2 = this.dateFormatida.parse(xml_TABDto.getDataDe());
+		date_info2 = this.dateFormatida.parse(concentradorDataDto.getDataDe());
 
 		} else {
 			
-		date_info2 = this.dateFormatida.parse(xml_TABDto.getDataAte());
+		date_info2 = this.dateFormatida.parse(concentradorDataDto.getDataAte());
 
 		}
 
@@ -98,7 +98,7 @@ public class XML_TABController {
 
 		Date currentDatePlusOne = c.getTime();
 
-		Page<XML_TAB> xmlDto = this.xmlRepository.findByConcentradorAndDataBetween(xml_TABDto.getConcentrador(),
+		Page<XML_TAB> xmlDto = this.xmlRepository.findByConcentradorAndDataBetween(concentradorDataDto.getConcentrador(),
 				date_info, currentDatePlusOne, PageRequest.of(0, 25));
 
 		Page<XML_TAB_RET> listadto = xmlDto.map(
@@ -115,7 +115,7 @@ public class XML_TABController {
 
 	@PostMapping(value = "/vnumhidro/buscarxml")
 	public ResponseEntity<Response<Page<XML_TAB_RET>>> buscarNumHidro(
-			@PathParam("buscar") @Valid @RequestBody NumHidrometroDTO xmlDto, BindingResult result) {
+			@PathParam("buscar") @Valid @RequestBody NumHidrometroDTO numHidroDto, BindingResult result) {
 		
 		Response<Page<XML_TAB_RET>> response = new Response<Page<XML_TAB_RET>>();
 
@@ -125,7 +125,7 @@ public class XML_TABController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		Page<XML_TAB> xml = this.xmlRepository.findByNumHidrometro(xmlDto.getNumHidrometro(), PageRequest.of(0, 25));
+		Page<XML_TAB> xml = this.xmlRepository.findByNumHidrometro(numHidroDto.getNumHidrometro(), PageRequest.of(0, 25));
 		
 		Page<XML_TAB_RET> listadto = xml.map(
 
@@ -140,22 +140,22 @@ public class XML_TABController {
 	}
 
 	@PostMapping(value = "/vnumhidroedata/buscarxml")
-	public ResponseEntity<Response<Page<XML_TAB_RET>>> buscarNumHidroAndData(@Valid @RequestBody NumHidrometroDataDTO xml_TABDto)
+	public ResponseEntity<Response<Page<XML_TAB_RET>>> buscarNumHidroAndData(@Valid @RequestBody NumHidrometroDataDTO numHidroDataDto)
 			throws ParseException {
 
 		Response<Page<XML_TAB_RET>> response = new Response<Page<XML_TAB_RET>>();
 
-		Date date_info = this.dateFormatida.parse(xml_TABDto.getDataDe());
+		Date date_info = this.dateFormatida.parse(numHidroDataDto.getDataDe());
 
 		Date date_info2;
 		
-		if (xml_TABDto.getDataAte() == null) {
+		if (numHidroDataDto.getDataAte() == null) {
 			
-			date_info2 = this.dateFormatida.parse(xml_TABDto.getDataDe());
+			date_info2 = this.dateFormatida.parse(numHidroDataDto.getDataDe());
 
 			} else {
 				
-			date_info2 = this.dateFormatida.parse(xml_TABDto.getDataAte());
+			date_info2 = this.dateFormatida.parse(numHidroDataDto.getDataAte());
 
 			}
 
@@ -167,7 +167,7 @@ public class XML_TABController {
 
 		System.out.println(currentDatePlusOne);
 
-		Page<XML_TAB> xmlDto = this.xmlRepository.findByNumHidrometroAndDataBetween(xml_TABDto.getNumHidrometro(),
+		Page<XML_TAB> xmlDto = this.xmlRepository.findByNumHidrometroAndDataBetween(numHidroDataDto.getNumHidrometro(),
 				date_info, currentDatePlusOne, PageRequest.of(0, 25));
 
 		Page<XML_TAB_RET> listadto = xmlDto.map(
@@ -187,7 +187,7 @@ public class XML_TABController {
 
 		dto.setIdXML_TAB(tab.getIdXML_TAB());
 		dto.setData(this.dateFormatvolta.format(tab.getData()));
-		dto.setConcentrador(tab.getConcentrador());
+		dto.setConcentrador(tab.getConcentrador().getNumConcentrador());
 		dto.setNumHidrometro(tab.getNumHidrometro());
 		dto.setAlarmes(tab.getAlarmes());
 		dto.setIndice_atual(tab.getIndice_atual());
@@ -200,7 +200,7 @@ public class XML_TABController {
 	private XML_TAB converterDTOparaXMl(XML_TAB_RET dto) {
 		XML_TAB tab = new XML_TAB();
 
-		tab.setConcentrador(dto.getConcentrador());
+	/*	tab.setConcentrador(dto.getConcentrador());
 		tab.setNumHidrometro(dto.getNumHidrometro());
 		tab.setConcentrador(dto.getConcentrador());
 
@@ -217,7 +217,7 @@ public class XML_TABController {
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 
 		return tab;
 
