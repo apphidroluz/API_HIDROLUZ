@@ -27,7 +27,7 @@ public class Cliente implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer Id_Cliente;
 
-	@Column(name = "login", nullable = false)
+	@Column(name = "login", nullable = false , unique = true)
 	private String login;
 
 	@Column(name = "senha", nullable = false)

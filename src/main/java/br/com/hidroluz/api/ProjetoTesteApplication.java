@@ -2,6 +2,7 @@ package br.com.hidroluz.api;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -13,7 +14,7 @@ import br.com.hidroluz.api.security.entity.Cliente;
 import br.com.hidroluz.api.security.enums.PerfilEnum;
 import br.com.hidroluz.api.security.repositories.ClienteRepository;
 import br.com.hidroluz.api.security.repositories.XML_TABRepository;
-import br.com.hidroluz.api.utils.SenhaUtils;
+import br.com.hidroluz.api.utils.SenhaUtil;
 
 
 @SpringBootApplication
@@ -35,12 +36,17 @@ public class ProjetoTesteApplication {
 	public CommandLineRunner commandLineRunner() {
 		return args -> {
 
-			Cliente cliente = new Cliente();
-			cliente.setLogin("ROBSON");
+			Optional<Cliente> cliente;
+			/*cliente.setLogin("ROBSON");
 			cliente.setSenha(SenhaUtils.gerarBCrypt("12345"));
 			cliente.setPerfil(PerfilEnum.ROLE_ADMIN);
-			
+			*/
 			//this.clienteRepository.save(cliente);
+			
+	
+			//System.out.println(cliente);
+
+			cliente = this.clienteRepository.findById(1);
 			
 	
 			//System.out.println(dateTime);

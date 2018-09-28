@@ -5,9 +5,11 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,9 +23,6 @@ public class XML_TAB implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer idXML_TAB;
-
-	@Column(name = "concentrador", nullable = false)
-	private String concentrador;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "data_Hora_leitura", nullable = false)
@@ -40,36 +39,37 @@ public class XML_TAB implements Serializable {
 
 	@Column(name = "unit", nullable = false)
 	private String unit;
+	
+	@Column(name = "concentrador", nullable = false)
+	private String concentrador;
 
 	public XML_TAB() {
 	}
+	
+	
 
-	public XML_TAB(Integer idXML_TAB, String concentrador, Date data, String numHidrometro, Double indice_atual,
-			String alarmes, String unit) {
+	public XML_TAB(Integer idXML_TAB, Date data, String numHidrometro, Double indice_atual, String alarmes, String unit,
+			String concentrador) {
 		super();
 		this.idXML_TAB = idXML_TAB;
-		this.concentrador = concentrador;
 		this.data = data;
 		this.numHidrometro = numHidrometro;
 		this.indice_atual = indice_atual;
 		this.alarmes = alarmes;
 		this.unit = unit;
+		this.concentrador = concentrador;
 	}
 
-	public Date getData() {
-		return data;
-	}
 
-	public void setData(Date data) {
-		this.data = data;
-	}
 
 	@Override
 	public String toString() {
-		return "XML_TAB [idXML_TAB=" + idXML_TAB + ", concentrador=" + concentrador + ", data_Hora_leitura=" + data
-				+ ", num_Hidrometro=" + numHidrometro + ", indice_atual=" + indice_atual + ", alarmes=" + alarmes
-				+ ", unit=" + unit + "]";
+		return "XML_TAB [idXML_TAB=" + idXML_TAB + ", data=" + data + ", numHidrometro=" + numHidrometro
+				+ ", indice_atual=" + indice_atual + ", alarmes=" + alarmes + ", unit=" + unit + ", concentrador="
+				+ concentrador + "]";
 	}
+
+
 
 	public Integer getIdXML_TAB() {
 		return idXML_TAB;
@@ -79,12 +79,12 @@ public class XML_TAB implements Serializable {
 		this.idXML_TAB = idXML_TAB;
 	}
 
-	public String getConcentrador() {
-		return concentrador;
+	public Date getData() {
+		return data;
 	}
 
-	public void setConcentrador(String concentrador) {
-		this.concentrador = concentrador;
+	public void setData(Date data) {
+		this.data = data;
 	}
 
 	public String getNumHidrometro() {
@@ -118,5 +118,14 @@ public class XML_TAB implements Serializable {
 	public void setUnit(String unit) {
 		this.unit = unit;
 	}
+
+	public String getConcentrador() {
+		return concentrador;
+	}
+
+	public void setConcentrador(String concentrador) {
+		this.concentrador = concentrador;
+	}
+
 
 }

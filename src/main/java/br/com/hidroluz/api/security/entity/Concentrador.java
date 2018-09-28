@@ -1,13 +1,12 @@
 package br.com.hidroluz.api.security.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -15,37 +14,50 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "concentrador")
-public class Concentrador {
+public class Concentrador implements Serializable{
+
+	private static final long serialVersionUID = 7716108130834719629L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer Id_Concentrador;
+	@Column(name = "concentrador", nullable = false, unique = true)
+	private String numConcentrador;
 
-	@Column(name = "concentrador", nullable = false)
-	private String Concentrador;
+	@OneToMany(mappedBy = "concentrador", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<XML_TAB> xmls;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Cliente cliente;
 
-	
 	public Concentrador() {
 		super();
 	}
 
-	public Integer getId_Concentrador() {
-		return Id_Concentrador;
+	public Concentrador(String concentrador, List<XML_TAB> xmls, Cliente cliente) {
+		super();
+		numConcentrador = concentrador;
+		this.xmls = xmls;
+		this.cliente = cliente;
 	}
 
-	public void setId_Concentrador(Integer id_Concentrador) {
-		Id_Concentrador = id_Concentrador;
+	@Override
+	public String toString() {
+		return "Concentrador [Concentrador=" + numConcentrador + ", xmls=" + xmls + ", cliente=" + cliente + "]";
 	}
 
-	public String getConcentrador() {
-		return Concentrador;
+	public String getNumConcentrador() {
+		return numConcentrador;
 	}
 
-	public void setConcentrador(String concentrador) {
-		Concentrador = concentrador;
+	public void setNumConcentrador(String concentrador) {
+		numConcentrador = concentrador;
+	}
+
+	public List<XML_TAB> getXmls() {
+		return xmls;
+	}
+
+	public void setXmls(List<XML_TAB> xmls) {
+		this.xmls = xmls;
 	}
 
 	public Cliente getCliente() {
@@ -55,13 +67,5 @@ public class Concentrador {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-
-
-	@Override
-	public String toString() {
-		return "Concentrador [Id_Concentrador=" + Id_Concentrador + ", Concentrador=" + Concentrador + ", cliente="
-				+ cliente + "]";
-	}
-
 
 }

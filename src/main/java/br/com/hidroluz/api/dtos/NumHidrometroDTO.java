@@ -9,8 +9,10 @@ public class NumHidrometroDTO {
 	private String numHidrometro;
 
 	public NumHidrometroDTO(String numHidrometro) {
-		super();
 		this.numHidrometro = numHidrometro;
+	}
+	
+	public NumHidrometroDTO() {
 	}
 
 	public String getNumHidrometro() {

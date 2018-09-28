@@ -17,6 +17,9 @@ public class ConcentradorDataDTO {
 		this.dataDe = dataDe;
 		this.dataAte = dataAte;
 	}
+	
+	public ConcentradorDataDTO() {
+	}
 
 	public String getConcentrador() {
 		return concentrador;
