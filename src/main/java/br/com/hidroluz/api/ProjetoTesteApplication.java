@@ -1,12 +1,7 @@
 package br.com.hidroluz.api;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -15,7 +10,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import br.com.hidroluz.api.security.entity.Cliente;
-import br.com.hidroluz.api.security.entity.XML_TAB;
 import br.com.hidroluz.api.security.enums.PerfilEnum;
 import br.com.hidroluz.api.security.repositories.ClienteRepository;
 import br.com.hidroluz.api.security.repositories.XML_TABRepository;
