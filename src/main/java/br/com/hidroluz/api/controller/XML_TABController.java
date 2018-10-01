@@ -2,8 +2,10 @@ package br.com.hidroluz.api.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.Valid;
 import javax.websocket.server.PathParam;
@@ -48,9 +50,9 @@ public class XML_TABController {
 //	private XML_TabService xml_TabService;
 
 	@PostMapping(value = "/vcon/buscarxml")
-	public ResponseEntity<Response<Page<XML_TAB_RET>>> buscarConce(
+	public ResponseEntity<Response<List<XML_TAB_RET>>> buscarConce(
 			@PathParam("buscar") @Valid @RequestBody ConcentradorDTO concentradorDto, BindingResult result) {
-		Response<Page<XML_TAB_RET>> response = new Response<Page<XML_TAB_RET>>();
+		Response<List<XML_TAB_RET>> response = new Response<List<XML_TAB_RET>>();
 
 		if (result.hasErrors()) {
 
@@ -58,14 +60,18 @@ public class XML_TABController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		Page<XML_TAB> xml = this.xmlRepository.findByConcentrador(concentradorDto.getConcentrador(), PageRequest.of(0, 25));
+		List<XML_TAB> xml = this.xmlRepository.findByConcentrador(concentradorDto.getConcentrador());
 		
-		Page<XML_TAB_RET> listadto = xml.map(
-
-				xmlDto2 -> this.converterXMLDTO(xmlDto2)
-
-		);
-
+		List<XML_TAB_RET> listadto = new ArrayList<>();
+		
+		for(int i = 0; i < xml.size(); i++ ) {
+			
+			listadto.add(this.converterXMLDTO(xml.get(i)));
+			
+			
+		}
+		
+	
 		response.setData(listadto);
 
 		return ResponseEntity.ok(response);

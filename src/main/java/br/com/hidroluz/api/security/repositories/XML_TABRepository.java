@@ -1,6 +1,7 @@
 package br.com.hidroluz.api.security.repositories;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.domain.Page;
@@ -17,7 +18,7 @@ import br.com.hidroluz.api.security.entity.XML_TAB;
 			query = "SELECT x FROM XML_TAB x WHERE x.date between :dataDe  AND :dataAte") })*/
 public interface XML_TABRepository extends JpaRepository<XML_TAB, Integer> {
 	
-	Page<XML_TAB> findByConcentrador(String concentrador,Pageable pageable);
+	List<XML_TAB> findByConcentrador(String concentrador);
 	
 	Page<XML_TAB> findByConcentradorAndDataBetween(String concentrador, Date dataDe, Date dataAte, Pageable pageable);
 	

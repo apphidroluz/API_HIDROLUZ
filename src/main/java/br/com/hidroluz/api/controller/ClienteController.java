@@ -1,6 +1,8 @@
 package br.com.hidroluz.api.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.Valid;
 import javax.websocket.server.PathParam;
@@ -64,11 +66,11 @@ public class ClienteController {
 	}
 
 	@PostMapping(value = "/v1/logar")
-	public ResponseEntity<Response<Page<XML_TAB_RET>>> cadastrar2(@PathParam("logar") @Valid @RequestBody ClienteDTO clienteDto,
+	public ResponseEntity<Response<List<XML_TAB_RET>>> cadastrar2(@PathParam("logar") @Valid @RequestBody ClienteDTO clienteDto,
 			BindingResult result) {
-		Response<Page<XML_TAB_RET>> response = new Response<Page<XML_TAB_RET>>();
+		Response<List<XML_TAB_RET>> response = new Response<List<XML_TAB_RET>>();
 
-		Page<XML_TAB> xmlDto= null;
+		List<XML_TAB> xmlDto= null;
 
 		Cliente cliente = this.clienteRepository.findByLogin(clienteDto.getLogin());
 		
@@ -76,19 +78,21 @@ public class ClienteController {
 		
 		for(int i = 0; i < cliente.getConcentradores().size(); i++) {
 			
-			xmlDto = this.xmlRepository.findByConcentrador(cliente.getConcentradores().get(i).getNumConcentrador(),
-					PageRequest.of(0, 25));	
+			xmlDto = this.xmlRepository.findByConcentrador(cliente.getConcentradores().get(i).getNumConcentrador());	
 			
 		}
 		
 		
+	  List<XML_TAB_RET> listadto = new ArrayList<>();
 		
+		for(int i = 0; i < xmlDto.size(); i++ ) {
+			
+			listadto.add(this.converterXMLDTO(xmlDto.get(i)));
+			
+			
+		}
 		
-		Page<XML_TAB_RET> listadto = xmlDto.map(
-
-				xmlDto2 -> this.converterXMLDTO(xmlDto2)
-
-		);
+	
 
 		System.out.println(listadto);
 		
