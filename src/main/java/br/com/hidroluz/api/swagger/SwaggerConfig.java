@@ -3,6 +3,9 @@ package br.com.hidroluz.api.swagger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import org.springframework.context.annotation.Profile;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -18,14 +21,15 @@ import springfox.documentation.swagger.web.SecurityConfiguration;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
+@Profile("dev")
 @EnableSwagger2
 public class SwaggerConfig {
-
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
 
 	@Autowired
 	private UserDetailsService userDetailsService;
+
 
 	@Bean
 	public Docket api() {

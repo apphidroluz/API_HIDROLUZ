@@ -2,15 +2,15 @@ package br.com.hidroluz.api.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,7 +25,6 @@ import br.com.hidroluz.api.dtos.NumHidrometroDTO;
 import br.com.hidroluz.api.dtos.NumHidrometroDataDTO;
 import br.com.hidroluz.api.dtos.XML_TAB_RET;
 import br.com.hidroluz.api.responses.Response;
-import br.com.hidroluz.api.security.entity.Concentrador;
 import br.com.hidroluz.api.security.entity.XML_TAB;
 import br.com.hidroluz.api.security.repositories.XML_TABRepository;
 
@@ -40,17 +39,13 @@ public class XML_TABController {
 	@Autowired
 	private XML_TABRepository xmlRepository;
 
-	/*
-	 * @Value("${paginacao.qtd_por_pagna}") private int qtdPorPagina = 5;
-	 */
-
 //	@Autowired
 //	private XML_TabService xml_TabService;
 
 	@PostMapping(value = "/vcon/buscarxml")
-	public ResponseEntity<Response<Page<XML_TAB_RET>>> buscarConce(
+	public ResponseEntity<Response<List<XML_TAB_RET>>> buscarConce(
 			@PathParam("buscar") @Valid @RequestBody ConcentradorDTO concentradorDto, BindingResult result) {
-		Response<Page<XML_TAB_RET>> response = new Response<Page<XML_TAB_RET>>();
+		Response<List<XML_TAB_RET>> response = new Response<List<XML_TAB_RET>>();
 
 		if (result.hasErrors()) {
 
@@ -58,13 +53,15 @@ public class XML_TABController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		Page<XML_TAB> xml = this.xmlRepository.findByConcentrador(concentradorDto.getConcentrador(), PageRequest.of(0, 25));
-		
-		Page<XML_TAB_RET> listadto = xml.map(
+		List<XML_TAB> xml = this.xmlRepository.findByConcentrador(concentradorDto.getConcentrador());
 
-				xmlDto2 -> this.converterXMLDTO(xmlDto2)
+		List<XML_TAB_RET> listadto = new ArrayList<>();
 
-		);
+		for (int i = 0; i < xml.size(); i++) {
+
+			listadto.add(this.converterXMLDTO(xml.get(i)));
+
+		}
 
 		response.setData(listadto);
 
@@ -73,22 +70,22 @@ public class XML_TABController {
 	}
 
 	@PostMapping(value = "/vconedate/buscarxml")
-	public ResponseEntity<Response<Page<XML_TAB_RET>>> buscarConceAndData(@Valid @RequestBody ConcentradorDataDTO concentradorDataDto)
-			throws ParseException {
+	public ResponseEntity<Response<List<XML_TAB_RET>>> buscarConceAndData(
+			@Valid @RequestBody ConcentradorDataDTO concentradorDataDto) throws ParseException {
 
-		Response<Page<XML_TAB_RET>> response = new Response<Page<XML_TAB_RET>>();
+		Response<List<XML_TAB_RET>> response = new Response<List<XML_TAB_RET>>();
 
 		Date date_info = this.dateFormatida.parse(concentradorDataDto.getDataDe());
 
-		Date date_info2 ;
+		Date date_info2;
 
 		if (concentradorDataDto.getDataAte() == null) {
-			
-		date_info2 = this.dateFormatida.parse(concentradorDataDto.getDataDe());
+
+			date_info2 = this.dateFormatida.parse(concentradorDataDto.getDataDe());
 
 		} else {
-			
-		date_info2 = this.dateFormatida.parse(concentradorDataDto.getDataAte());
+
+			date_info2 = this.dateFormatida.parse(concentradorDataDto.getDataAte());
 
 		}
 
@@ -98,26 +95,27 @@ public class XML_TABController {
 
 		Date currentDatePlusOne = c.getTime();
 
-		Page<XML_TAB> xmlDto = this.xmlRepository.findByConcentradorAndDataBetween(concentradorDataDto.getConcentrador(),
-				date_info, currentDatePlusOne, PageRequest.of(0, 25));
+		List<XML_TAB> xmlDto = this.xmlRepository
+				.findByConcentradorAndDataBetween(concentradorDataDto.getConcentrador(), date_info, currentDatePlusOne);
 
-		Page<XML_TAB_RET> listadto = xmlDto.map(
+		List<XML_TAB_RET> listadto = new ArrayList<>();
 
-				xmlDto2 -> this.converterXMLDTO(xmlDto2)
+		for (int i = 0; i < xmlDto.size(); i++) {
 
-		);
+			listadto.add(this.converterXMLDTO(xmlDto.get(i)));
+
+		}
 
 		response.setData(listadto);
 
 		return ResponseEntity.ok(response);
-
 	}
 
 	@PostMapping(value = "/vnumhidro/buscarxml")
-	public ResponseEntity<Response<Page<XML_TAB_RET>>> buscarNumHidro(
+	public ResponseEntity<Response<List<XML_TAB_RET>>> buscarNumHidro(
 			@PathParam("buscar") @Valid @RequestBody NumHidrometroDTO numHidroDto, BindingResult result) {
-		
-		Response<Page<XML_TAB_RET>> response = new Response<Page<XML_TAB_RET>>();
+
+		Response<List<XML_TAB_RET>> response = new Response<List<XML_TAB_RET>>();
 
 		if (result.hasErrors()) {
 
@@ -125,13 +123,15 @@ public class XML_TABController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		Page<XML_TAB> xml = this.xmlRepository.findByNumHidrometro(numHidroDto.getNumHidrometro(), PageRequest.of(0, 25));
-		
-		Page<XML_TAB_RET> listadto = xml.map(
+		List<XML_TAB> xml = this.xmlRepository.findByNumHidrometro(numHidroDto.getNumHidrometro());
 
-				xmlDto2 -> this.converterXMLDTO(xmlDto2)
+		List<XML_TAB_RET> listadto = new ArrayList<>();
 
-		);
+		for (int i = 0; i < xml.size(); i++) {
+
+			listadto.add(this.converterXMLDTO(xml.get(i)));
+
+		}
 
 		response.setData(listadto);
 
@@ -140,24 +140,24 @@ public class XML_TABController {
 	}
 
 	@PostMapping(value = "/vnumhidroedata/buscarxml")
-	public ResponseEntity<Response<Page<XML_TAB_RET>>> buscarNumHidroAndData(@Valid @RequestBody NumHidrometroDataDTO numHidroDataDto)
-			throws ParseException {
+	public ResponseEntity<Response<List<XML_TAB_RET>>> buscarNumHidroAndData(
+			@Valid @RequestBody NumHidrometroDataDTO numHidroDataDto) throws ParseException {
 
-		Response<Page<XML_TAB_RET>> response = new Response<Page<XML_TAB_RET>>();
+		Response<List<XML_TAB_RET>> response = new Response<List<XML_TAB_RET>>();
 
 		Date date_info = this.dateFormatida.parse(numHidroDataDto.getDataDe());
 
 		Date date_info2;
-		
+
 		if (numHidroDataDto.getDataAte() == null) {
-			
+
 			date_info2 = this.dateFormatida.parse(numHidroDataDto.getDataDe());
 
-			} else {
-				
+		} else {
+
 			date_info2 = this.dateFormatida.parse(numHidroDataDto.getDataAte());
 
-			}
+		}
 
 		Calendar c = Calendar.getInstance();
 		c.setTime(date_info2);
@@ -167,14 +167,16 @@ public class XML_TABController {
 
 		System.out.println(currentDatePlusOne);
 
-		Page<XML_TAB> xmlDto = this.xmlRepository.findByNumHidrometroAndDataBetween(numHidroDataDto.getNumHidrometro(),
-				date_info, currentDatePlusOne, PageRequest.of(0, 25));
+		List<XML_TAB> xmlDto = this.xmlRepository.findByNumHidrometroAndDataBetween(numHidroDataDto.getNumHidrometro(),
+				date_info, currentDatePlusOne);
 
-		Page<XML_TAB_RET> listadto = xmlDto.map(
+		List<XML_TAB_RET> listadto = new ArrayList<>();
 
-				xmlDto2 -> this.converterXMLDTO(xmlDto2)
+		for (int i = 0; i < xmlDto.size(); i++) {
 
-		);
+			listadto.add(this.converterXMLDTO(xmlDto.get(i)));
+
+		}
 
 		response.setData(listadto);
 

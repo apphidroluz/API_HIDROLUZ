@@ -39,9 +39,11 @@ public class Concentrador implements Serializable{
 		this.cliente = cliente;
 	}
 
+
+
 	@Override
 	public String toString() {
-		return "Concentrador [Concentrador=" + numConcentrador + ", xmls=" + xmls + ", cliente=" + cliente + "]";
+		return "Concentrador [numConcentrador=" + numConcentrador + ", xmls=" + xmls + "]";
 	}
 
 	public String getNumConcentrador() {
