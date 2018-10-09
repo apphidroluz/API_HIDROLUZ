@@ -15,7 +15,7 @@ import br.com.hidroluz.api.security.entity.XML_TAB;
 @ComponentScan(basePackages = "br.com.hidroluz.api")
 public interface XML_TABRepository extends JpaRepository<XML_TAB, Integer> {
 	
-	List<XML_TAB> findByConcentrador(String concentrador);
+	List<XML_TAB> findByConcentradorOrderByNumHidrometro(String concentrador);
 	
 	List<XML_TAB> findByConcentradorAndDataBetween(String concentrador, Date dataDe, Date dataAte);
 	

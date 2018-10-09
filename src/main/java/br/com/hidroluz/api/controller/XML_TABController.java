@@ -53,7 +53,7 @@ public class XML_TABController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		List<XML_TAB> xml = this.xmlRepository.findByConcentrador(concentradorDto.getConcentrador());
+		List<XML_TAB> xml = this.xmlRepository.findByConcentradorOrderByNumHidrometro(concentradorDto.getConcentrador());
 
 		List<XML_TAB_RET> listadto = new ArrayList<>();
 

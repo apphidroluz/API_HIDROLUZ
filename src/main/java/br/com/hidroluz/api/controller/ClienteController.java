@@ -76,7 +76,7 @@ public class ClienteController {
 		
 		for(int i = 0; i < cliente.getConcentradores().size(); i++) {
 			
-			xmlDto = this.xmlRepository.findByConcentrador(cliente.getConcentradores().get(i).getNumConcentrador());	
+			xmlDto = this.xmlRepository.findByConcentradorOrderByNumHidrometro(cliente.getConcentradores().get(i).getNumConcentrador());	
 			
 		}
 		
