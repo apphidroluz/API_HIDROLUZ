@@ -21,7 +21,7 @@ public interface XML_TABRepository extends JpaRepository<XML_TAB, Integer> {
 	
 	List<XML_TAB> findByNumHidrometro(String numHidrometro);
 	
-	List<XML_TAB> findByNumHidrometroAndDataBetween(String numHidrometro, Date dataDe, Date dataAte);
+	List<XML_TAB> findByNumHidrometroAndDataBetweenOrderByData(String numHidrometro, Date dataDe, Date dataAte);
 	
 
 }

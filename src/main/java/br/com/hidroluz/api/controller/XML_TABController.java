@@ -167,7 +167,7 @@ public class XML_TABController {
 
 		System.out.println(currentDatePlusOne);
 
-		List<XML_TAB> xmlDto = this.xmlRepository.findByNumHidrometroAndDataBetween(numHidroDataDto.getNumHidrometro(),
+		List<XML_TAB> xmlDto = this.xmlRepository.findByNumHidrometroAndDataBetweenOrderByData(numHidroDataDto.getNumHidrometro(),
 				date_info, currentDatePlusOne);
 
 		List<XML_TAB_RET> listadto = new ArrayList<>();
