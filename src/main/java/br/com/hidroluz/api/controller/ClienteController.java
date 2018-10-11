@@ -89,9 +89,6 @@ public class ClienteController {
 			
 			
 		}
-		
-
-	
 
 		System.out.println(listadto);
 		
