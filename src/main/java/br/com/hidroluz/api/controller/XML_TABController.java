@@ -183,6 +183,51 @@ public class XML_TABController {
 		return ResponseEntity.ok(response);
 
 	}
+	
+	@PostMapping(value = "/vnumhidroedatahora/buscarxml")
+	public ResponseEntity<Response<List<XML_TAB_RET>>> buscarNumHidroAndDataHora(
+			@Valid @RequestBody NumHidrometroDataDTO numHidroDataDto) throws ParseException {
+
+		Response<List<XML_TAB_RET>> response = new Response<List<XML_TAB_RET>>();
+
+		Date date_info = this.dateFormatida.parse(numHidroDataDto.getDataDe());
+
+		Date date_info2;
+
+		if (numHidroDataDto.getDataAte() == null) {
+
+			date_info2 = this.dateFormatida.parse(numHidroDataDto.getDataDe());
+
+		} else {
+
+			date_info2 = this.dateFormatida.parse(numHidroDataDto.getDataAte());
+
+		}
+
+		Calendar c = Calendar.getInstance();
+		c.setTime(date_info2);
+		c.add(Calendar.DATE, 1);
+
+		Date currentDatePlusOne = c.getTime();
+
+		System.out.println(currentDatePlusOne);
+
+		List<XML_TAB> xmlDto = this.xmlRepository.findByNumHidrometroAndDataBetweenOrderByData(numHidroDataDto.getNumHidrometro(),
+				date_info, currentDatePlusOne);
+
+		List<XML_TAB_RET> listadto = new ArrayList<>();
+
+		for (int i = 0; i < xmlDto.size(); i++) {
+
+			listadto.add(this.converterXMLDTO(xmlDto.get(i)));
+
+		}
+
+		response.setData(listadto);
+
+		return ResponseEntity.ok(response);
+
+	}
 
 	private XML_TAB_RET converterXMLDTO(XML_TAB tab) {
 		XML_TAB_RET dto = new XML_TAB_RET();
