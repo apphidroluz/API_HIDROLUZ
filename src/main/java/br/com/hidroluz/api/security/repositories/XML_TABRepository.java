@@ -15,15 +15,13 @@ public interface XML_TABRepository extends JpaRepository<XML_TAB, Integer> {
 	
 	List<XML_TAB> findByConcentradorOrderByNumHidrometro(String concentrador);
 	
+	List<XML_TAB> findByConcentradorAndDataBetweenOrderByData(String concentrador, Date dataDe, Date dataAte);
+		
 	List<XML_TAB> findByConcentradorAndDataBetween(String concentrador, Date dataDe, Date dataAte);
-	
-	List<XML_TAB> findByConcentradorAndDataOrderByData(String concentrador, Date dataDe);
 	
 	List<XML_TAB> findByNumHidrometro(String numHidrometro);
 	
 	List<XML_TAB> findByNumHidrometroAndDataBetweenOrderByData(String numHidrometro, Date dataDe, Date dataAte);
-	
-	List<XML_TAB> findByNumHidrometroAndDataOrderByData(String numHidrometro, Date dataDe);
 	
 
 }

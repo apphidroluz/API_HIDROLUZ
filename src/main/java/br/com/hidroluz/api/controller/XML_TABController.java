@@ -53,7 +53,7 @@ public class XML_TABController {
 			result.getAllErrors().forEach(errors -> response.getErrors().add(errors.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
 		}
-
+		
 		List<XML_TAB> xml = this.xmlRepository.findByConcentradorOrderByNumHidrometro(concentradorDto.getConcentrador());
 
 		List<XML_TAB_RET> listadto = new ArrayList<>();
@@ -69,6 +69,10 @@ public class XML_TABController {
 		return ResponseEntity.ok(response);
 
 	}
+	
+	
+
+
 
 	@PostMapping(value = "/vconedate/buscarxml")
 	public ResponseEntity<Response<List<XML_TAB_RET>>> buscarConceAndData(
