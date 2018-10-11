@@ -174,7 +174,7 @@ public class XML_TABController {
 
 		for (int i = 0; i < xmlDto.size(); i++) {
 
-			listadto.add(this.converterXMLDTO(xmlDto.get(i)));
+			listadto.add(this.converterXMLDTOData(xmlDto.get(i)));
 
 		}
 
@@ -189,6 +189,22 @@ public class XML_TABController {
 
 		dto.setIdXML_TAB(tab.getIdXML_TAB());
 		dto.setData(this.dateFormatvolta.format(tab.getData()));
+		dto.setConcentrador(tab.getConcentrador());
+		dto.setNumHidrometro(tab.getNumHidrometro());
+		dto.setAlarmes(tab.getAlarmes());
+		dto.setIndice_atual(tab.getIndice_atual());
+		dto.setUnit(tab.getUnit());
+
+		return dto;
+
+	}
+	
+	
+	private XML_TAB_RET converterXMLDTOData(XML_TAB tab) {
+		XML_TAB_RET dto = new XML_TAB_RET();
+
+		dto.setIdXML_TAB(tab.getIdXML_TAB());
+		dto.setData(this.dateFormatida.format(tab.getData()));
 		dto.setConcentrador(tab.getConcentrador());
 		dto.setNumHidrometro(tab.getNumHidrometro());
 		dto.setAlarmes(tab.getAlarmes());
