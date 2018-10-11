@@ -38,6 +38,7 @@ public class ClienteController {
 
 	private final SimpleDateFormat dateFormatida = new SimpleDateFormat("yyyy-MM-dd");
 	private final SimpleDateFormat dateFormatvolta = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+	private final SimpleDateFormat dateFormatretorno = new SimpleDateFormat("dd-MM-yyyy");
 
 	@Autowired
 	private ClienteRepository clienteRepository;
@@ -144,7 +145,7 @@ public class ClienteController {
 
 		for (int i = 0; i < xmlDto.size(); i++) {
 
-			listadto.add(this.converterXMLDTO(xmlDto.get(i)));
+			listadto.add(this.converterXMLDTOData(xmlDto.get(i)));
 
 		}
 
@@ -163,6 +164,21 @@ public class ClienteController {
 
 		dto.setIdXML_TAB(tab.getIdXML_TAB());
 		dto.setData(this.dateFormatvolta.format(tab.getData()));
+		dto.setConcentrador(tab.getConcentrador());
+		dto.setNumHidrometro(tab.getNumHidrometro());
+		dto.setAlarmes(tab.getAlarmes());
+		dto.setIndice_atual(tab.getIndice_atual());
+		dto.setUnit(tab.getUnit());
+
+		return dto;
+
+	}
+	
+	private XML_TAB_RET converterXMLDTOData(XML_TAB tab) {
+		XML_TAB_RET dto = new XML_TAB_RET();
+
+		dto.setIdXML_TAB(tab.getIdXML_TAB());
+		dto.setData(this.dateFormatretorno.format(tab.getData()));
 		dto.setConcentrador(tab.getConcentrador());
 		dto.setNumHidrometro(tab.getNumHidrometro());
 		dto.setAlarmes(tab.getAlarmes());
