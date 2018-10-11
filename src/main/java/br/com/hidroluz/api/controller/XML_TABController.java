@@ -34,6 +34,7 @@ import br.com.hidroluz.api.security.repositories.XML_TABRepository;
 public class XML_TABController {
 
 	private final SimpleDateFormat dateFormatida = new SimpleDateFormat("yyyy-MM-dd");
+	private final SimpleDateFormat dateFormatretorno = new SimpleDateFormat("dd-MM-yyyy");
 	private final SimpleDateFormat dateFormatvolta = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
 	@Autowired
@@ -204,7 +205,7 @@ public class XML_TABController {
 		XML_TAB_RET dto = new XML_TAB_RET();
 
 		dto.setIdXML_TAB(tab.getIdXML_TAB());
-		dto.setData(this.dateFormatida.format(tab.getData()));
+		dto.setData(this.dateFormatretorno.format(tab.getData()));
 		dto.setConcentrador(tab.getConcentrador());
 		dto.setNumHidrometro(tab.getNumHidrometro());
 		dto.setAlarmes(tab.getAlarmes());
