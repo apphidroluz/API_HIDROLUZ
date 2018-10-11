@@ -53,7 +53,7 @@ public class XML_TABController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		List<XML_TAB> xml = this.xmlRepository.findByConcentrador(concentradorDto.getConcentrador());
+		List<XML_TAB> xml = this.xmlRepository.findByConcentradorOrderByNumHidrometro(concentradorDto.getConcentrador());
 
 		List<XML_TAB_RET> listadto = new ArrayList<>();
 
@@ -167,14 +167,14 @@ public class XML_TABController {
 
 		System.out.println(currentDatePlusOne);
 
-		List<XML_TAB> xmlDto = this.xmlRepository.findByNumHidrometroAndDataBetween(numHidroDataDto.getNumHidrometro(),
+		List<XML_TAB> xmlDto = this.xmlRepository.findByNumHidrometroAndDataBetweenOrderByData(numHidroDataDto.getNumHidrometro(),
 				date_info, currentDatePlusOne);
 
 		List<XML_TAB_RET> listadto = new ArrayList<>();
 
 		for (int i = 0; i < xmlDto.size(); i++) {
 
-			listadto.add(this.converterXMLDTO(xmlDto.get(i)));
+			listadto.add(this.converterXMLDTOData(xmlDto.get(i)));
 
 		}
 
@@ -189,6 +189,22 @@ public class XML_TABController {
 
 		dto.setIdXML_TAB(tab.getIdXML_TAB());
 		dto.setData(this.dateFormatvolta.format(tab.getData()));
+		dto.setConcentrador(tab.getConcentrador());
+		dto.setNumHidrometro(tab.getNumHidrometro());
+		dto.setAlarmes(tab.getAlarmes());
+		dto.setIndice_atual(tab.getIndice_atual());
+		dto.setUnit(tab.getUnit());
+
+		return dto;
+
+	}
+	
+	
+	private XML_TAB_RET converterXMLDTOData(XML_TAB tab) {
+		XML_TAB_RET dto = new XML_TAB_RET();
+
+		dto.setIdXML_TAB(tab.getIdXML_TAB());
+		dto.setData(this.dateFormatida.format(tab.getData()));
 		dto.setConcentrador(tab.getConcentrador());
 		dto.setNumHidrometro(tab.getNumHidrometro());
 		dto.setAlarmes(tab.getAlarmes());
