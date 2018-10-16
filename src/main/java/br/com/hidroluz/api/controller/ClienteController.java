@@ -71,20 +71,30 @@ public class ClienteController {
 
 	@PostMapping(value = "/v1/logar")
 	public ResponseEntity<Response<List<XML_TAB_RET>>> cadastrar2(
-			@PathParam("logar") @Valid @RequestBody ClienteDTO clienteDto, BindingResult result) {
+			@PathParam("logar") @Valid @RequestBody ClienteDTO clienteDto, BindingResult result) throws ParseException {
 		Response<List<XML_TAB_RET>> response = new Response<List<XML_TAB_RET>>();
 
 		List<XML_TAB> xmlDto = null;
+		Calendar c = Calendar.getInstance();
 
 		Cliente cliente = this.clienteRepository.findByLogin(clienteDto.getLogin());
 
-		// System.out.println(cliente);
+		Date date_info;
+
+
+	    date_info = this.dateFormatida.parse(getDateTime()); 
+	   
+		
+		c.setTime(date_info);
+		c.add(Calendar.DATE, 1);
+
+		Date currentDatePlusOne = c.getTime();
 
 
 		for (int i = 0; i < cliente.getConcentradores().size(); i++) {
 
 			xmlDto = this.xmlRepository
-					.findByConcentradorOrderByNumHidrometro(cliente.getConcentradores().get(i).getNumConcentrador());
+					.findByConcentradorAndDataBetweenOrderByData(cliente.getConcentradores().get(i).getNumConcentrador(),date_info,currentDatePlusOne);
 
 		}
 
@@ -131,6 +141,47 @@ public class ClienteController {
 		c.setTime(date_info2);
 		c.add(Calendar.DATE, 1);
 
+		Date currentDatePlusOne = c.getTime();
+
+
+		for (int i = 0; i < cliente.getConcentradores().size(); i++) {
+
+			xmlDto = this.xmlRepository
+					.findByConcentradorAndDataBetweenOrderByData(cliente.getConcentradores().get(i).getNumConcentrador(), date_info ,currentDatePlusOne);
+
+		}
+
+		List<XML_TAB_RET> listadto = new ArrayList<>();
+
+		for (int i = 0; i < xmlDto.size(); i++) {
+
+			listadto.add(this.converterXMLDTOData(xmlDto.get(i)));
+
+		}
+
+		response.setData(listadto);
+
+		return ResponseEntity.ok(response);
+
+	}
+	
+	
+	@PostMapping(value = "/v3/logar")
+	public ResponseEntity<Response<List<XML_TAB_RET>>> LogarComDatade(
+			@PathParam("logar") @Valid @RequestBody ConcentradorDataDTO concentradorDataDTO, BindingResult result) throws ParseException {
+		Response<List<XML_TAB_RET>> response = new Response<List<XML_TAB_RET>>();
+
+		Calendar c = Calendar.getInstance();
+		
+		List<XML_TAB> xmlDto = null;
+		
+		Date date_info = this.dateFormatida.parse(concentradorDataDTO.getDataDe());
+
+		Cliente cliente = this.clienteRepository.findByLogin(concentradorDataDTO.getLogin());
+		   	    
+	    c.setTime(date_info);
+		c.add(Calendar.DATE, 1);
+				
 		Date currentDatePlusOne = c.getTime();
 
 
