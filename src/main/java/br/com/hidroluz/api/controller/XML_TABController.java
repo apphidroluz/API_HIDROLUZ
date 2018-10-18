@@ -128,7 +128,7 @@ public class XML_TABController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		List<XML_TAB> xml = this.xmlRepository.findByNumHidrometroOrderByData(numHidroDto.getNumHidrometro());
+		List<XML_TAB> xml = this.xmlRepository.findByNumHidrometroOrderByDataDesc(numHidroDto.getNumHidrometro());
 
 		List<XML_TAB_RET> listadto = new ArrayList<>();
 
