@@ -116,7 +116,7 @@ public class XML_TABController {
 		return ResponseEntity.ok(response);
 	}
 
-	@PostMapping(value = "	")
+	@PostMapping(value = "/vnumhidro/buscarxml")
 	public ResponseEntity<Response<List<XML_TAB_RET>>> buscarNumHidro(
 			@PathParam("buscar") @Valid @RequestBody NumHidrometroDTO numHidroDto, BindingResult result) {
 
