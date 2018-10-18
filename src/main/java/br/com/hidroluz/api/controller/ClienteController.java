@@ -86,15 +86,22 @@ public class ClienteController {
 	   
 		
 		c.setTime(date_info);
-		c.add(Calendar.DATE, 1);
+		c.add(Calendar.DATE, -1);
 
-		Date currentDatePlusOne = c.getTime();
+		Date currentDateLessOne = c.getTime();
+		
+		c.setTime(date_info);
+		c.add(Calendar.DATE, -3);
 
+		
+		Date currentDateLessTwo = c.getTime();
+		
+	
 
 		for (int i = 0; i < cliente.getConcentradores().size(); i++) {
 
 			xmlDto = this.xmlRepository
-					.findByConcentradorAndDataBetweenOrderByData(cliente.getConcentradores().get(i).getNumConcentrador(),date_info,currentDatePlusOne);
+					.findByConcentradorAndDataBetweenOrderByData(cliente.getConcentradores().get(i).getNumConcentrador(),currentDateLessOne,currentDateLessTwo);
 
 		}
 
