@@ -101,7 +101,7 @@ public class ClienteController {
 		for (int i = 0; i < cliente.getConcentradores().size(); i++) {
 
 			xmlDto = this.xmlRepository
-					.findByConcentradorAndDataBetweenOrderByData(cliente.getConcentradores().get(i).getNumConcentrador(),currentDateLessOne,currentDateLessTwo);
+					.findByConcentradorAndDataBetweenOrderByData(cliente.getConcentradores().get(i).getNumConcentrador(),currentDateLessTwo,currentDateLessOne);
 
 		}
 
