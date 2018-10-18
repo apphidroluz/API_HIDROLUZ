@@ -96,12 +96,14 @@ public class ClienteController {
 		
 		Date currentDateLessTwo = c.getTime();
 		
+	System.out.println(currentDateLessTwo  );
 	
+	System.out.println(currentDateLessOne  );
 
 		for (int i = 0; i < cliente.getConcentradores().size(); i++) {
 
 			xmlDto = this.xmlRepository
-					.findByConcentradorAndDataBetweenOrderByData(cliente.getConcentradores().get(i).getNumConcentrador(),currentDateLessTwo,currentDateLessOne);
+					.findByConcentradorAndDataBetweenOrderByData(cliente.getConcentradores().get(i).getNumConcentrador(),currentDateLessTwo,date_info);
 
 		}
 
