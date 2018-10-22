@@ -208,6 +208,13 @@ public class XML_TABController {
 			date_info2 = this.dateFormatida.parse(numHidroDataDto.getDataAte());
 
 		}
+		
+		
+		Calendar ca = Calendar.getInstance();
+		ca.setTime(date_info);
+		ca.add(Calendar.DATE, -1);
+		
+		Date currentDateLessOne = ca.getTime();
 
 		Calendar c = Calendar.getInstance();
 		c.setTime(date_info2);
@@ -215,10 +222,10 @@ public class XML_TABController {
 
 		Date currentDatePlusOne = c.getTime();
 
-		System.out.println(currentDatePlusOne);
+		
 
 		List<XML_TAB> xmlDto = this.xmlRepository.findByNumHidrometroAndDataBetweenOrderByData(numHidroDataDto.getNumHidrometro(),
-				date_info, currentDatePlusOne);
+				currentDateLessOne, currentDatePlusOne);
 
 		List<XML_TAB_RET> listadto = new ArrayList<>();
 
