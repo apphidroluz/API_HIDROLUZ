@@ -245,7 +245,7 @@ public class XML_TABController {
 		XML_TAB_RET dto = new XML_TAB_RET();
 
 		dto.setIdXML_TAB(tab.getIdXML_TAB());
-		dto.setData(this.dateFormatvolta.format(tab.getData()));
+		dto.setData(this.dateFormatretorno.format(tab.getData()));
 		dto.setConcentrador(tab.getConcentrador());
 		dto.setNumHidrometro(tab.getNumHidrometro());
 		dto.setAlarmes(tab.getAlarmes());
