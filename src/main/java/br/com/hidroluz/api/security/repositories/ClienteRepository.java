@@ -10,6 +10,7 @@ import br.com.hidroluz.api.security.entity.Cliente;
 @Repository
 @ComponentScan(basePackages = "br.com.hidroluz.api")
 @ConfigurationProperties(prefix = "cliente")
+
 public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
 	
 	Cliente findByLoginAndSenha(String login, String senha);

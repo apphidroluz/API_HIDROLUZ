@@ -23,6 +23,8 @@ import br.com.hidroluz.api.dtos.ConcentradorDTO;
 import br.com.hidroluz.api.dtos.ConcentradorDataDTO;
 import br.com.hidroluz.api.dtos.NumHidrometroDTO;
 import br.com.hidroluz.api.dtos.NumHidrometroDataDTO;
+import br.com.hidroluz.api.dtos.XML_TABDto;
+import br.com.hidroluz.api.dtos.XML_TAB_CONC;
 import br.com.hidroluz.api.dtos.XML_TAB_RET;
 import br.com.hidroluz.api.responses.Response;
 import br.com.hidroluz.api.security.entity.XML_TAB;
@@ -36,6 +38,7 @@ public class XML_TABController {
 	private final SimpleDateFormat dateFormatida = new SimpleDateFormat("yyyy-MM-dd");
 	private final SimpleDateFormat dateFormatretorno = new SimpleDateFormat("dd-MM-yyyy");
 	private final SimpleDateFormat dateFormatvolta = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+	private final SimpleDateFormat dateFormatconsulta = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	@Autowired
 	private XML_TABRepository xmlRepository;
@@ -53,8 +56,9 @@ public class XML_TABController {
 			result.getAllErrors().forEach(errors -> response.getErrors().add(errors.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
 		}
-		
-		List<XML_TAB> xml = this.xmlRepository.findByConcentradorOrderByNumHidrometro(concentradorDto.getConcentrador());
+
+		List<XML_TAB> xml = this.xmlRepository
+				.findByConcentradorOrderByNumHidrometro(concentradorDto.getConcentrador());
 
 		List<XML_TAB_RET> listadto = new ArrayList<>();
 
@@ -69,10 +73,6 @@ public class XML_TABController {
 		return ResponseEntity.ok(response);
 
 	}
-	
-	
-
-
 
 	@PostMapping(value = "/vconedate/buscarxml")
 	public ResponseEntity<Response<List<XML_TAB_RET>>> buscarConceAndData(
@@ -172,8 +172,8 @@ public class XML_TABController {
 
 		System.out.println(currentDatePlusOne);
 
-		List<XML_TAB> xmlDto = this.xmlRepository.findByNumHidrometroAndDataBetweenOrderByData(numHidroDataDto.getNumHidrometro(),
-				date_info, currentDatePlusOne);
+		List<XML_TAB> xmlDto = this.xmlRepository.findByNumHidrometroAndDataBetweenOrderByData(
+				numHidroDataDto.getNumHidrometro(), date_info, currentDatePlusOne);
 
 		List<XML_TAB_RET> listadto = new ArrayList<>();
 
@@ -188,7 +188,7 @@ public class XML_TABController {
 		return ResponseEntity.ok(response);
 
 	}
-	
+
 	@PostMapping(value = "/vnumhidroedatahora/buscarxml")
 	public ResponseEntity<Response<List<XML_TAB_RET>>> buscarNumHidroAndDataHora(
 			@Valid @RequestBody NumHidrometroDataDTO numHidroDataDto) throws ParseException {
@@ -208,12 +208,11 @@ public class XML_TABController {
 			date_info2 = this.dateFormatida.parse(numHidroDataDto.getDataAte());
 
 		}
-		
-		
+
 		Calendar ca = Calendar.getInstance();
 		ca.setTime(date_info);
 		ca.add(Calendar.DATE, -1);
-		
+
 		Date currentDateLessOne = ca.getTime();
 
 		Calendar c = Calendar.getInstance();
@@ -222,22 +221,101 @@ public class XML_TABController {
 
 		Date currentDatePlusOne = c.getTime();
 
-		
-
-		List<XML_TAB> xmlDto = this.xmlRepository.findByNumHidrometroAndDataBetweenOrderByData(numHidroDataDto.getNumHidrometro(),
-				currentDateLessOne, currentDatePlusOne);
+		List<XML_TAB> xmlDto = this.xmlRepository.findByNumHidrometroAndDataBetweenOrderByData(
+				numHidroDataDto.getNumHidrometro(), currentDateLessOne, currentDatePlusOne);
 
 		List<XML_TAB_RET> listadto = new ArrayList<>();
 
 		for (int i = 0; i < xmlDto.size(); i++) {
 
-			listadto.add(this.converterXMLDTO(xmlDto.get(i)));
+			listadto.add(this.converterDTOparaXMl(xmlDto.get(i)));
 
 		}
 
 		response.setData(listadto);
 
 		return ResponseEntity.ok(response);
+
+	}
+
+	@PostMapping(value = "/vnumhidro/buscaralarmexml")
+	public ResponseEntity<Response<List<XML_TAB_RET>>> buscarNumHidroalarme(
+			@PathParam("buscar") @Valid @RequestBody XML_TABDto XMlDto, BindingResult result) {
+		Response<List<XML_TAB_RET>> response = new Response<List<XML_TAB_RET>>();
+
+		if (result.hasErrors()) {
+
+			result.getAllErrors().forEach(errors -> response.getErrors().add(errors.getDefaultMessage()));
+			return ResponseEntity.badRequest().body(response);
+
+		}
+
+		try {
+			Date dia1 = this.dateFormatconsulta.parse(XMlDto.getDataDe());
+			Date dia2 = this.dateFormatconsulta.parse(XMlDto.getDataAte());
+
+			System.out.println(dia1.toString() + dia2.toString());
+
+			System.out.println();
+
+			List<XML_TAB> xml = this.xmlRepository.findByNumHidrometroAlarme(dia1, dia2);
+
+			List<XML_TAB_RET> listadto = new ArrayList<>();
+//
+			for (int i = 0; i < xml.size(); i++) {
+
+				listadto.add(this.converterDTOparaXMl(xml.get(i)));
+
+			}
+
+			response.setData(listadto);
+
+			return ResponseEntity.ok(response);
+
+		} catch (ParseException e) {
+
+			return ResponseEntity.ok(response);
+		}
+
+	}
+
+
+
+	@PostMapping(value = "/vnumhidro/buscarconcentradorxml")
+	public ResponseEntity<Response<List<XML_TAB_CONC>>> buscarUltimaleitura() {
+
+		Response<List<XML_TAB_CONC>> response = new Response<List<XML_TAB_CONC>>();
+
+		System.out.println("1");
+
+		try {
+
+			List<XML_TAB> xml = this.xmlRepository.listConcentradorPorDataMaxima();
+			
+			System.out.println("2");
+
+			List<XML_TAB_CONC> listadto = new ArrayList<>();
+			
+			System.out.println("3" + xml);
+			
+			//
+			for (int i = 0; i < xml.size(); i++) {
+				
+				
+				listadto.add(this.converterDTOConceparaXMl(xml.get(i)));
+
+			}
+			
+			System.out.println("5");
+
+			response.setData(listadto);
+
+			return ResponseEntity.ok(response);
+
+		} catch (Exception e) {
+
+			return ResponseEntity.ok(response);
+		}
 
 	}
 
@@ -255,8 +333,7 @@ public class XML_TABController {
 		return dto;
 
 	}
-	
-	
+
 	private XML_TAB_RET converterXMLDTOData(XML_TAB tab) {
 		XML_TAB_RET dto = new XML_TAB_RET();
 
@@ -272,27 +349,28 @@ public class XML_TABController {
 
 	}
 
-	private XML_TAB converterDTOparaXMl(XML_TAB_RET dto) {
-		XML_TAB tab = new XML_TAB();
+	private XML_TAB_CONC converterDTOConceparaXMl(XML_TAB dto) {
+		XML_TAB_CONC tab = new XML_TAB_CONC();
+		
+		System.out.println("4");
 
+		tab.setConcentrador(dto.getConcentrador());
+		tab.setData(this.dateFormatvolta.format(dto.getData()));
+
+		return tab;
+
+	}
+	private XML_TAB_RET converterDTOparaXMl(XML_TAB dto) {
+		XML_TAB_RET tab = new XML_TAB_RET();
+
+		tab.setIdXML_TAB(dto.getIdXML_TAB());
 		tab.setConcentrador(dto.getConcentrador());
 		tab.setNumHidrometro(dto.getNumHidrometro());
 		tab.setConcentrador(dto.getConcentrador());
-
-		String teste = this.dateFormatvolta.format(dto.getData());
-
-		System.out.println(teste);
-
-		try {
-			Date teste2 = this.dateFormatvolta.parse(teste);
-
-			System.out.println(teste2);
-
-			tab.setData(teste2);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		tab.setIndice_atual(dto.getIndice_atual());
+		tab.setAlarmes(dto.getAlarmes());
+		tab.setUnit(dto.getUnit());
+		tab.setData(this.dateFormatvolta.format(dto.getData()));
 
 		return tab;
 

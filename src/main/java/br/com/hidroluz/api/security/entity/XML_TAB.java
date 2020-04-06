@@ -128,4 +128,14 @@ public class XML_TAB implements Serializable {
 	}
 
 
+
+	public XML_TAB(String concentrador,Date data) {
+		super();
+		this.data = data;
+		this.concentrador = concentrador;
+	}
+	
+	
+
+
 }

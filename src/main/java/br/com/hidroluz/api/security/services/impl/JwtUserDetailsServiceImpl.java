@@ -13,21 +13,21 @@ import br.com.hidroluz.api.security.entity.Cliente;
 import br.com.hidroluz.api.security.services.ClienteService;
 
 @Service
-public class JwtUserDetailsServiceImpl implements UserDetailsService{
+public class JwtUserDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired
 	private ClienteService clienteService;
-	
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Optional<Cliente> user = clienteService.buscarPorLogin(username);
-		
-		if(user.isPresent()) {
+
+		if (user.isPresent()) {
 			return JwtUserFactory.create(user.get());
 		}
-		
+
 		throw new UsernameNotFoundException("Login Não encontrado.");
-		
+
 	}
 
 }
